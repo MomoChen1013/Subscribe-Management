@@ -7,64 +7,56 @@
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --white:     #fafaf8;
-  --paper:     #f4f2ee;
-  --paper2:    #eceae3;
-  --border:    #dddad1;
-  --border2:   #c6c2b7;
-  --sage:      #6b7c65;
-  --sage-dim:  #a3b09d;
-  --sage-pale: #d4ddd1;
-  --moss:      #3d4f3a;
-  --moss-pale: #eef1eb;
-  --earth:     #8a7560;
-  --text:      #2c2c27;
-  --text-mid:  #6b6860;
-  --text-dim:  #9e9b93;
-  --amber:     #c47c2b;
-  --amber-pale:#fdf3e3;
-  --red-soft:  #b05a4a;
-  --red-pale:  #fdf0ee;
-  --green:     #5a8a5a;
-  --green-pale:#edf5ed;
-  --r:         10px;
-  --r-lg:      16px;
+  --white:      #fafaf8;
+  --paper:      #f4f2ee;
+  --paper2:     #ece9e2;
+  --border:     rgba(44,44,39,0.11);
+  --border2:    rgba(44,44,39,0.2);
+  --sage:       #6b7c65;
+  --sage-pale:  #d4ddd1;
+  --moss:       #3d4f3a;
+  --moss-pale:  #eef1eb;
+  --text:       #2c2c27;
+  --text-mid:   #6b6860;
+  --text-dim:   #9e9b93;
+  --amber:      #c47c2b;
+  --amber-pale: #fdf3e3;
+  --red:        #b05a4a;
+  --red-pale:   #fdf0ee;
+  --green:      #5a8a5a;
+  --green-pale: #edf5ed;
+  --r:          10px;
+  --r-lg:       14px;
+  --ff:         'Zen Kaku Gothic New', sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{
   background:var(--white);color:var(--text);
-  font-family:'Zen Kaku Gothic New',sans-serif;font-weight:400;
-  min-height:100vh;padding-bottom:80px;
+  font-family:var(--ff);font-weight:400;
+  min-height:100vh;padding-bottom:60px;
 }
 body::before{
-  content:'';position:fixed;inset:0;
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
-    radial-gradient(ellipse 55% 35% at 10% 15%,rgba(107,124,101,.07) 0%,transparent 60%),
-    radial-gradient(ellipse 45% 55% at 88% 82%,rgba(107,124,101,.05) 0%,transparent 55%);
-  pointer-events:none;z-index:0;
+    radial-gradient(ellipse 60% 40% at 8% 12%,rgba(107,124,101,.06) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 90% 85%,rgba(107,124,101,.04) 0%,transparent 55%);
 }
-.wrap{max-width:760px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px;position:relative;z-index:1;}
 
 /* HEADER */
 header{
-  padding:40px 0 28px;border-bottom:1px solid var(--border);
-  margin-bottom:28px;display:flex;align-items:flex-end;
-  justify-content:space-between;gap:16px;
+  padding:26px 0 18px;border-bottom:1px solid var(--border);margin-bottom:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
 }
-.eyebrow{
-  font-size:10px;letter-spacing:.28em;color:var(--sage);
-  text-transform:uppercase;margin-bottom:8px;
-  display:flex;align-items:center;gap:8px;font-weight:500;
-}
-.eyebrow::before{content:'';display:inline-block;width:16px;height:1px;background:var(--sage-dim);}
-h1{font-size:clamp(22px,4.5vw,32px);font-weight:700;color:var(--moss);letter-spacing:-.01em;}
-.header-nav{display:flex;gap:8px;}
+.eyebrow{font-size:9px;letter-spacing:.28em;color:var(--sage);text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:6px;}
+.eyebrow::before{content:'';width:14px;height:1px;background:rgba(107,124,101,.5);}
+h1{font-size:clamp(18px,4vw,24px);font-weight:700;color:var(--moss);letter-spacing:-.02em;}
+.header-nav{display:flex;gap:6px;flex-shrink:0;}
 .nav-btn{
-  background:none;border:1px solid var(--border);border-radius:8px;
-  padding:8px 16px;font-family:'Zen Kaku Gothic New',sans-serif;
-  font-size:12px;font-weight:500;color:var(--text-mid);
-  cursor:pointer;transition:all .17s;letter-spacing:.04em;
+  background:none;border:1px solid var(--border2);border-radius:8px;
+  padding:7px 13px;font-family:var(--ff);font-size:11.5px;font-weight:500;color:var(--text-mid);
+  cursor:pointer;transition:all .15s;letter-spacing:.03em;white-space:nowrap;
 }
 .nav-btn:hover{border-color:var(--sage);color:var(--moss);background:var(--moss-pale);}
 .nav-btn.active{background:var(--moss);color:white;border-color:var(--moss);}
@@ -73,277 +65,189 @@ h1{font-size:clamp(22px,4.5vw,32px);font-weight:700;color:var(--moss);letter-spa
 .stats-row{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:1px;background:var(--border);border-radius:var(--r);
-  overflow:hidden;border:1px solid var(--border);margin-bottom:28px;
+  overflow:hidden;border:1px solid var(--border);margin-bottom:18px;
 }
-.stat{background:var(--paper);padding:16px 18px;transition:background .18s;}
-.stat:hover{background:var(--paper2);}
-.stat-label{font-size:9.5px;letter-spacing:.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:6px;font-weight:500;}
-.stat-val{font-size:20px;font-weight:700;color:var(--moss);line-height:1;}
-.stat-val small{font-size:10px;color:var(--text-dim);margin-left:3px;font-weight:400;}
+.stat{background:var(--paper);padding:10px 12px;}
+.stat-label{font-size:9px;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase;margin-bottom:4px;font-weight:500;}
+.stat-val{font-size:clamp(15px,3.5vw,18px);font-weight:700;color:var(--moss);line-height:1;}
+.stat-val small{font-size:9px;color:var(--text-dim);margin-left:2px;font-weight:400;}
 
 /* TABS */
 .tab-pane{display:none;}
 .tab-pane.active{display:block;}
 
-/* SERVICE LIST */
+/* SERVICE CARD */
 .service-list{display:flex;flex-direction:column;gap:10px;}
 .service-card{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:var(--r-lg);overflow:hidden;
-  transition:box-shadow .18s,border-color .18s;animation:fadeUp .22s ease;
+  background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);
+  overflow:hidden;animation:fadeUp .2s ease;transition:border-color .15s,box-shadow .15s;
+  position:relative;
 }
-.service-card:hover{border-color:var(--border2);box-shadow:0 2px 14px rgba(0,0,0,.06);}
-@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.service-card:hover{border-color:var(--border2);box-shadow:0 2px 12px rgba(0,0,0,.05);}
+
+/* role indicator stripe on left */
+.service-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:14px 0 0 14px;
+  background:var(--sage-pale);transition:background .2s;
+}
+.service-card.role-admin::before{background:var(--moss);}
+.service-card.role-member::before{background:var(--sage);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
 .svc-header{
   display:flex;align-items:center;justify-content:space-between;
-  padding:15px 18px;cursor:pointer;gap:12px;user-select:none;
+  padding:12px 14px 12px 17px;cursor:pointer;gap:10px;user-select:none;
 }
-.svc-left{display:flex;align-items:center;gap:12px;}
-.svc-emoji{
-  width:36px;height:36px;border-radius:9px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;background:var(--moss-pale);
+.svc-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.svc-emoji{width:34px;height:34px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;background:var(--moss-pale);}
+.svc-text{min-width:0;}
+.svc-name-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.svc-name{font-size:13.5px;font-weight:700;color:var(--text);line-height:1.2;}
+.my-role-badge{
+  font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;
+  letter-spacing:.07em;text-transform:uppercase;flex-shrink:0;
 }
-.svc-name{font-size:14px;font-weight:700;color:var(--text);line-height:1.2;}
-.svc-meta{font-size:10.5px;color:var(--text-dim);margin-top:2px;letter-spacing:.02em;}
-.svc-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.svc-price{font-size:15px;font-weight:700;color:var(--moss);text-align:right;}
-.svc-price small{font-size:10px;color:var(--text-dim);font-weight:400;display:block;}
-.chevron{font-size:11px;color:var(--text-dim);transition:transform .22s;}
+.my-role-badge.admin {background:rgba(61,79,58,.1);color:var(--moss);}
+.my-role-badge.member{background:rgba(107,124,101,.12);color:var(--sage);}
+.svc-meta{font-size:10px;color:var(--text-dim);margin-top:2px;}
+.svc-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.svc-price{font-size:14px;font-weight:700;color:var(--moss);}
+.svc-price small{font-size:9px;color:var(--text-dim);font-weight:400;}
+.chevron{font-size:11px;color:var(--text-dim);transition:transform .2s;}
 .service-card.open .chevron{transform:rotate(180deg);}
+.debt-pill{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--red-pale);color:var(--red);border:1px solid rgba(176,90,74,.18);white-space:nowrap;}
 
-/* Debt pill on service header */
-.debt-pill{
-  font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;
-  background:var(--red-pale);color:var(--red-soft);
-  border:1px solid rgba(176,90,74,.2);white-space:nowrap;
-}
-
-.svc-body{display:none;border-top:1px solid var(--border);background:var(--paper);padding:14px 18px;}
+/* CARD BODY */
+.svc-body{display:none;border-top:1px solid var(--border);background:var(--paper);padding:12px 14px 12px 17px;}
 .service-card.open .svc-body{display:block;}
 
+/* Finance cells */
+.finance-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px;}
+.fin-cell{background:var(--white);padding:10px 12px;}
+.fin-cell.tap{cursor:pointer;transition:background .14s;}
+.fin-cell.tap:hover{background:var(--moss-pale);}
+.fin-label{font-size:9px;letter-spacing:.16em;color:var(--text-dim);text-transform:uppercase;margin-bottom:3px;font-weight:500;}
+.fin-val{font-size:16px;font-weight:700;color:var(--moss);line-height:1.1;}
+.fin-val small{font-size:9.5px;color:var(--text-dim);font-weight:400;margin-left:2px;}
+.fin-edit{font-size:10px;color:var(--text-dim);margin-left:4px;}
+.fin-input{font-size:15px;font-weight:700;color:var(--moss);background:transparent;border:none;border-bottom:1.5px solid var(--sage);font-family:var(--ff);outline:none;width:100%;padding:0 0 2px;}
+
 /* MEMBER ROW */
-.member-row{
-  display:grid;grid-template-columns:28px 1fr auto auto auto auto;
-  align-items:center;gap:8px;
-  padding:9px 0;border-bottom:1px solid var(--border);
-}
+.member-row{display:grid;align-items:start;gap:8px;padding:9px 0;border-bottom:1px solid var(--border);grid-template-columns:30px 1fr auto;}
 .member-row:last-of-type{border-bottom:none;}
-.member-avatar-sm{
-  width:28px;height:28px;border-radius:50%;
+.m-avatar{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;margin-top:1px;
   background:var(--moss-pale);border:1px solid var(--sage-pale);
   display:flex;align-items:center;justify-content:center;
-  font-size:12px;color:var(--moss);font-weight:700;flex-shrink:0;
+  font-size:12px;color:var(--moss);font-weight:700;transition:background .14s,border-color .14s;
 }
-.member-name-sm{font-size:13px;font-weight:500;color:var(--text);}
-.member-dates{font-size:10.5px;color:var(--text-dim);margin-top:1px;}
+.m-avatar.paid  {background:var(--green-pale);border-color:rgba(90,138,90,.35);color:var(--green);}
+.m-avatar.unpaid{background:var(--red-pale);border-color:rgba(176,90,74,.35);color:var(--red);}
+.m-name{font-size:12.5px;font-weight:500;color:var(--text);line-height:1.3;}
+.m-dates{font-size:10px;color:var(--text-dim);margin-top:2px;line-height:1.5;}
+.m-actions{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
 
-.role-badge{
-  font-size:9.5px;font-weight:700;padding:2px 8px;
-  border-radius:20px;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;
-}
-.role-payer {background:rgba(61,79,58,.1);color:var(--moss);}
-.role-member{background:rgba(107,124,101,.12);color:var(--sage);}
-.role-self  {background:rgba(196,124,43,.1);color:var(--amber);}
-
-.renew-badge{font-size:9.5px;font-weight:500;padding:2px 8px;border-radius:20px;flex-shrink:0;white-space:nowrap;}
-.rb-ok     {background:rgba(90,138,90,.08);color:var(--green);}
-.rb-due    {background:rgba(196,124,43,.1);color:var(--amber);}
-.rb-overdue{background:rgba(176,90,74,.1);color:var(--red-soft);}
-
-/* PAY STATUS TOGGLE */
-.pay-toggle{
-  display:inline-flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;flex-shrink:0;
-}
-.pay-opt{
-  padding:4px 9px;font-family:'Zen Kaku Gothic New',sans-serif;
-  font-size:10.5px;font-weight:700;cursor:pointer;
-  transition:background .15s,color .15s;user-select:none;
-  border-right:1px solid var(--border);letter-spacing:.04em;
-}
+/* pay toggle */
+.pay-toggle{display:flex;border:1px solid var(--border2);border-radius:5px;overflow:hidden;}
+.pay-opt{padding:4px 8px;font-family:var(--ff);font-size:10px;font-weight:700;cursor:pointer;transition:background .13s,color .13s;user-select:none;letter-spacing:.04em;border-right:1px solid var(--border2);white-space:nowrap;color:var(--text-dim);background:transparent;}
 .pay-opt:last-child{border-right:none;}
 .pay-opt.paid  {background:var(--green-pale);color:var(--green);}
-.pay-opt.unpaid{background:var(--red-pale);color:var(--red-soft);}
-.pay-opt:not(.paid):not(.unpaid){color:var(--text-dim);background:transparent;}
+.pay-opt.unpaid{background:var(--red-pale);color:var(--red);}
 
-/* DEBT SUMMARY */
-.debt-summary{
-  background:var(--amber-pale);border:1px solid rgba(196,124,43,.25);
-  border-radius:var(--r);padding:12px 16px;margin-top:12px;
-  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-}
-.debt-label{font-size:11px;font-weight:700;color:var(--amber);}
-.debt-items{display:flex;flex-wrap:wrap;gap:6px;}
-.debt-item{
-  font-size:11px;background:white;border:1px solid rgba(196,124,43,.2);
-  border-radius:6px;padding:3px 10px;color:var(--amber);font-weight:500;
-}
+.renew-badge{font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:20px;white-space:nowrap;display:inline-block;margin-top:2px;}
+.rn-ok     {background:rgba(90,138,90,.08);color:var(--green);}
+.rn-due    {background:rgba(196,124,43,.1);color:var(--amber);}
+.rn-overdue{background:rgba(176,90,74,.1);color:var(--red);}
 
-/* FOOTER INSIDE CARD */
-.svc-footer{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;padding-top:12px;margin-top:8px;flex-wrap:wrap;
-}
-.btn-ghost{
-  background:transparent;border:1px solid var(--border);
-  border-radius:6px;color:var(--text-dim);padding:5px 8px;font-size:12px;
-  cursor:pointer;transition:all .16s;line-height:1;
-  font-family:'Zen Kaku Gothic New',sans-serif;
-}
-.btn-ghost:hover{border-color:var(--red-soft);color:var(--red-soft);}
-.btn-add-member{
-  background:var(--moss-pale);border:1px solid var(--sage-pale);
-  border-radius:6px;color:var(--moss);
-  font-family:'Zen Kaku Gothic New',sans-serif;
-  font-size:11px;font-weight:700;padding:8px 14px;
-  cursor:pointer;transition:all .16s;letter-spacing:.06em;
-}
+.btn-sm{background:transparent;border:1px solid var(--border);border-radius:5px;color:var(--text-dim);padding:4px 7px;font-size:12px;cursor:pointer;transition:all .13s;line-height:1;font-family:var(--ff);}
+.btn-sm:hover{border-color:var(--red);color:var(--red);}
+.btn-sm.edit:hover{border-color:var(--sage);color:var(--moss);}
+
+/* debt summary */
+.debt-summary{background:var(--amber-pale);border:1px solid rgba(196,124,43,.22);border-radius:var(--r);padding:10px 13px;margin-top:10px;}
+.debt-head{font-size:11px;font-weight:700;color:var(--amber);margin-bottom:6px;}
+.debt-items{display:flex;flex-wrap:wrap;gap:5px;}
+.debt-item{font-size:11px;background:white;border:1px solid rgba(196,124,43,.18);border-radius:5px;padding:3px 9px;color:var(--amber);font-weight:500;}
+
+/* card footer */
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;margin-top:8px;flex-wrap:wrap;gap:8px;}
+.btn-add-member{background:var(--moss-pale);border:1px solid var(--sage-pale);border-radius:6px;color:var(--moss);font-family:var(--ff);font-size:10.5px;font-weight:700;padding:7px 12px;cursor:pointer;transition:all .14s;letter-spacing:.05em;white-space:nowrap;}
 .btn-add-member:hover{background:var(--moss);color:white;}
-.msg-member-btns{display:flex;flex-wrap:wrap;gap:6px;}
-.msg-copy-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  background:var(--white);border:1px solid var(--border);border-radius:6px;
-  padding:7px 11px;font-family:'Zen Kaku Gothic New',sans-serif;
-  font-size:11px;color:var(--text-dim);cursor:pointer;transition:all .16s;font-weight:500;
-}
-.msg-copy-btn:hover{border-color:var(--sage);color:var(--sage);background:var(--moss-pale);}
-.msg-copy-btn.copied{border-color:var(--green);color:var(--green);}
-
-/* ICS BUTTON */
-.btn-ics{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--white);border:1px solid var(--border);border-radius:6px;
-  padding:7px 12px;font-family:'Zen Kaku Gothic New',sans-serif;
-  font-size:11px;color:var(--text-dim);cursor:pointer;transition:all .16s;font-weight:500;
-}
-.btn-ics:hover{border-color:var(--moss);color:var(--moss);background:var(--moss-pale);}
+.msg-btns{display:flex;flex-wrap:wrap;gap:5px;}
+.msg-btn{display:inline-flex;align-items:center;gap:4px;background:var(--white);border:1px solid var(--border);border-radius:5px;padding:6px 10px;font-family:var(--ff);font-size:10.5px;color:var(--text-dim);cursor:pointer;transition:all .13s;font-weight:500;}
+.msg-btn:hover{border-color:var(--sage);color:var(--sage);background:var(--moss-pale);}
+.msg-btn.copied{border-color:var(--green);color:var(--green);}
 
 /* ADD SERVICE */
-.btn-add-service{
-  width:100%;margin-top:14px;padding:13px 20px;
-  background:var(--moss);color:var(--white);border:none;border-radius:var(--r-lg);
-  font-family:'Zen Kaku Gothic New',sans-serif;
-  font-size:13px;font-weight:700;letter-spacing:.12em;
-  cursor:pointer;transition:all .17s;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.btn-add-service:hover{background:#2e3d2c;transform:translateY(-1px);box-shadow:0 4px 14px rgba(61,79,58,.18);}
-.add-svc-panel{
-  display:none;background:var(--paper);border:1px solid var(--border);
-  border-radius:var(--r-lg);padding:24px;margin-top:14px;animation:fadeUp .2s ease;
-}
+.btn-add-service{width:100%;margin-top:12px;padding:12px 16px;background:var(--moss);color:var(--white);border:none;border-radius:var(--r-lg);font-family:var(--ff);font-size:12px;font-weight:700;letter-spacing:.1em;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:7px;}
+.btn-add-service:hover{background:#2e3d2c;transform:translateY(-1px);box-shadow:0 4px 14px rgba(61,79,58,.15);}
+.add-svc-panel{display:none;background:var(--paper);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;margin-top:12px;animation:fadeUp .18s ease;}
 .add-svc-panel.open{display:block;}
-.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-.panel-title{font-size:11px;letter-spacing:.2em;color:var(--sage);text-transform:uppercase;font-weight:700;}
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.panel-title{font-size:10.5px;letter-spacing:.18em;color:var(--sage);text-transform:uppercase;font-weight:700;}
 
 /* SETTINGS */
-.settings-section{margin-bottom:28px;}
-.settings-title{
-  font-size:11px;letter-spacing:.2em;color:var(--sage);text-transform:uppercase;
-  font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);
-}
-.settings-card{background:var(--paper);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px 24px;}
-.settings-row{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;margin-top:4px;}
+.settings-section{margin-bottom:22px;}
+.settings-title{font-size:10.5px;letter-spacing:.18em;color:var(--sage);text-transform:uppercase;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.settings-card{background:var(--paper);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;}
 
 /* FORM */
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:11px;}
 .field:last-child{margin-bottom:0;}
 .field.full{grid-column:1/-1;}
-label{font-size:10px;letter-spacing:.18em;color:var(--text-mid);text-transform:uppercase;font-weight:500;}
-input,select,textarea{
-  background:var(--white);border:1px solid var(--border);border-radius:6px;
-  padding:10px 13px;font-family:'Zen Kaku Gothic New',sans-serif;
-  font-size:13px;color:var(--text);outline:none;
-  transition:border-color .17s,box-shadow .17s;-webkit-appearance:none;width:100%;
-}
+label{font-size:9.5px;letter-spacing:.17em;color:var(--text-mid);text-transform:uppercase;font-weight:500;}
+input,select,textarea{background:var(--white);border:1px solid var(--border);border-radius:5px;padding:9px 11px;font-family:var(--ff);font-size:13px;color:var(--text);outline:none;transition:border-color .14s,box-shadow .14s;-webkit-appearance:none;width:100%;}
 input:focus,select:focus,textarea:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(107,124,101,.1);}
 input::placeholder,textarea::placeholder{color:var(--text-dim);}
-textarea{resize:vertical;min-height:100px;line-height:1.7;}
+textarea{resize:vertical;min-height:90px;line-height:1.7;}
 select option{background:white;}
 input[type="date"]::-webkit-calendar-picker-indicator{opacity:.38;cursor:pointer;}
-.hint{font-size:10.5px;color:var(--text-dim);line-height:1.6;margin-top:4px;}
-.hint code{background:var(--paper2);border-radius:3px;padding:1px 5px;font-family:monospace;font-size:10px;color:var(--earth);}
+.hint{font-size:10px;color:var(--text-dim);line-height:1.6;margin-top:3px;}
+.hint code{background:var(--paper2);border-radius:3px;padding:1px 4px;font-family:monospace;font-size:9.5px;color:#8a7560;}
 
-/* BUTTONS GENERIC */
-.btn-primary{
-  width:100%;padding:11px 20px;background:var(--moss);color:var(--white);
-  border:none;border-radius:6px;font-family:'Zen Kaku Gothic New',sans-serif;
-  font-size:12px;font-weight:700;letter-spacing:.12em;cursor:pointer;transition:all .17s;margin-top:6px;
-}
+/* my-role picker in form */
+.my-role-pick{display:flex;border:1px solid var(--border2);border-radius:6px;overflow:hidden;background:var(--white);}
+.mrp-opt{flex:1;padding:8px 6px;text-align:center;font-family:var(--ff);font-size:12px;font-weight:500;color:var(--text-dim);cursor:pointer;transition:background .14s,color .14s;letter-spacing:.04em;user-select:none;border-right:1px solid var(--border2);}
+.mrp-opt:last-child{border-right:none;}
+.mrp-opt.active{background:var(--moss);color:white;}
+.mrp-opt:not(.active):hover{background:var(--moss-pale);color:var(--moss);}
+
+/* BUTTONS */
+.btn-primary{width:100%;padding:10px 16px;background:var(--moss);color:var(--white);border:none;border-radius:6px;font-family:var(--ff);font-size:11.5px;font-weight:700;letter-spacing:.1em;cursor:pointer;transition:all .14s;margin-top:4px;}
 .btn-primary:hover{background:#2e3d2c;}
-.btn-save{
-  padding:10px 22px;background:var(--moss);color:var(--white);border:none;
-  border-radius:6px;font-family:'Zen Kaku Gothic New',sans-serif;
-  font-size:12px;font-weight:700;letter-spacing:.1em;cursor:pointer;transition:all .17s;
-}
+.btn-save{padding:9px 18px;background:var(--moss);color:var(--white);border:none;border-radius:6px;font-family:var(--ff);font-size:11.5px;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:all .14s;}
 .btn-save:hover{background:#2e3d2c;}
-.btn-secondary{
-  padding:10px 18px;background:var(--paper2);color:var(--text-mid);
-  border:1px solid var(--border);border-radius:6px;
-  font-family:'Zen Kaku Gothic New',sans-serif;font-size:12px;font-weight:500;
-  cursor:pointer;transition:all .17s;
-}
+.btn-secondary{padding:9px 14px;background:var(--paper2);color:var(--text-mid);border:1px solid var(--border);border-radius:6px;font-family:var(--ff);font-size:11.5px;font-weight:500;cursor:pointer;transition:all .14s;}
 .btn-secondary:hover{border-color:var(--border2);color:var(--text);}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
 
 /* MODAL */
-.modal-bg{
-  display:none;position:fixed;inset:0;
-  background:rgba(44,44,39,.3);z-index:200;
-  align-items:center;justify-content:center;backdrop-filter:blur(2px);
-}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(44,44,39,.3);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(3px);padding:16px;}
 .modal-bg.open{display:flex;}
-.modal-box{
-  background:var(--white);border-radius:var(--r-lg);
-  padding:26px 24px;max-width:460px;width:calc(100% - 40px);
-  position:relative;max-height:90vh;overflow-y:auto;animation:fadeUp .2s ease;
-}
-.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-.modal-title{font-size:14px;font-weight:700;color:var(--moss);}
-.modal-close{background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-dim);padding:2px 6px;transition:color .15s;}
+.modal-box{background:var(--white);border-radius:var(--r-lg);padding:22px 20px;max-width:440px;width:100%;max-height:90vh;overflow-y:auto;animation:fadeUp .18s ease;}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.modal-title{font-size:13.5px;font-weight:700;color:var(--moss);}
+.modal-close{background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-dim);padding:2px 6px;}
 .modal-close:hover{color:var(--text);}
 
-/* ROLE TOGGLE */
-.role-toggle{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--white);}
-.role-opt{
-  flex:1;padding:9px 8px;text-align:center;
-  font-family:'Zen Kaku Gothic New',sans-serif;font-size:12px;font-weight:500;
-  color:var(--text-dim);cursor:pointer;transition:background .16s,color .16s;
-  letter-spacing:.04em;user-select:none;border-right:1px solid var(--border);
-}
-.role-opt:last-child{border-right:none;}
-.role-opt.active{background:var(--moss);color:white;}
-.role-opt:not(.active):hover{background:var(--moss-pale);color:var(--moss);}
+/* ICS */
+.ics-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px;}
 
 /* EMPTY */
-.empty{text-align:center;padding:48px 24px;border:1px dashed var(--border2);border-radius:var(--r-lg);color:var(--text-dim);}
-.empty-art{font-size:28px;margin-bottom:12px;opacity:.4;}
-.empty p{font-size:13px;line-height:1.8;}
-
-/* ICS SETTINGS */
-.ics-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.empty{text-align:center;padding:40px 20px;border:1px dashed var(--border2);border-radius:var(--r-lg);color:var(--text-dim);}
+.empty-art{font-size:26px;margin-bottom:10px;opacity:.38;}
+.empty p{font-size:12.5px;line-height:1.8;}
 
 /* TOAST */
-.toast{
-  position:fixed;bottom:26px;right:22px;
-  background:var(--moss);color:rgba(255,255,255,.92);
-  border-radius:8px;padding:10px 18px;
-  font-size:12px;font-weight:500;letter-spacing:.04em;
-  z-index:999;opacity:0;transform:translateY(8px);
-  transition:all .2s;pointer-events:none;
-  box-shadow:0 4px 18px rgba(61,79,58,.22);
-}
+.toast{position:fixed;bottom:22px;right:16px;background:var(--moss);color:rgba(255,255,255,.92);border-radius:8px;padding:9px 16px;font-size:11.5px;font-weight:500;letter-spacing:.04em;z-index:999;opacity:0;transform:translateY(6px);transition:all .18s;pointer-events:none;box-shadow:0 4px 16px rgba(61,79,58,.22);}
 .toast.show{opacity:1;transform:translateY(0);}
 
-@media(max-width:580px){
-  .form-grid{grid-template-columns:1fr;}
+@media(max-width:480px){
+  .form-grid,.ics-grid{grid-template-columns:1fr;}
   .field.full{grid-column:1;}
-  .stats-row{grid-template-columns:1fr;}
-  .member-row{grid-template-columns:28px 1fr auto auto;}
-  .member-row .renew-badge{display:none;}
-  header{flex-direction:column;align-items:flex-start;gap:12px;}
-  .ics-options{grid-template-columns:1fr;}
+  header{flex-wrap:wrap;}
 }
 </style>
 </head>
@@ -363,16 +267,18 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.38;cursor:pointer
 
 <div class="stats-row">
   <div class="stat"><div class="stat-label">訂閱項目</div><div class="stat-val" id="st-services">0 <small>項</small></div></div>
-  <div class="stat"><div class="stat-label">每月費用</div><div class="stat-val" id="st-monthly">0 <small>元 / 月</small></div></div>
-  <div class="stat"><div class="stat-label">年度總計</div><div class="stat-val" id="st-annual">0 <small>元 / 年</small></div></div>
+  <div class="stat"><div class="stat-label">每月費用</div><div class="stat-val" id="st-monthly">0 <small>元</small></div></div>
+  <div class="stat"><div class="stat-label">年度總計</div><div class="stat-val" id="st-annual">0 <small>元</small></div></div>
 </div>
 
 <!-- Tab: Services -->
 <div id="tab-services" class="tab-pane active">
   <div id="service-list" class="service-list"></div>
+
   <button class="btn-add-service" onclick="toggleAddPanel()">
     <span id="add-btn-icon">＋</span> 新增訂閱項目
   </button>
+
   <div class="add-svc-panel" id="add-svc-panel">
     <div class="panel-head">
       <div class="panel-title">🌿 新增訂閱項目</div>
@@ -382,37 +288,44 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.38;cursor:pointer
       <div class="field full">
         <label>選擇預設服務</label>
         <select id="inp-preset" onchange="applyPreset()">
-          <option value="">── 選擇或直接自行填寫 ──</option>
+          <option value="">── 選擇或自行填寫 ──</option>
           <optgroup label="Apple">
-            <option value="apple_one"   data-emoji="🍎" data-price="345"  data-cycle="monthly">Apple One 家庭方案</option>
-            <option value="apple_music" data-emoji="🎵" data-price="190"  data-cycle="monthly">Apple Music 家庭</option>
-            <option value="apple_tv"    data-emoji="📺" data-price="130"  data-cycle="monthly">Apple TV+</option>
-            <option value="icloud200"   data-emoji="☁️" data-price="90"   data-cycle="monthly">iCloud+ 200GB 家庭</option>
-            <option value="icloud2t"    data-emoji="☁️" data-price="330"  data-cycle="monthly">iCloud+ 2TB 家庭</option>
+            <option value="a1" data-emoji="🍎" data-price="345" data-cycle="monthly">Apple One 家庭方案</option>
+            <option value="a2" data-emoji="🎵" data-price="190" data-cycle="monthly">Apple Music 家庭</option>
+            <option value="a3" data-emoji="📺" data-price="130" data-cycle="monthly">Apple TV+</option>
+            <option value="a4" data-emoji="☁️" data-price="90"  data-cycle="monthly">iCloud+ 200GB 家庭</option>
+            <option value="a5" data-emoji="☁️" data-price="330" data-cycle="monthly">iCloud+ 2TB 家庭</option>
           </optgroup>
           <optgroup label="影音串流">
-            <option value="netflix"  data-emoji="🎬" data-price="390" data-cycle="monthly">Netflix 標準 4K</option>
-            <option value="youtube"  data-emoji="▶️" data-price="429" data-cycle="monthly">YouTube Premium 家庭</option>
-            <option value="disney"   data-emoji="✨" data-price="270" data-cycle="monthly">Disney+</option>
-            <option value="prime"    data-emoji="📦" data-price="199" data-cycle="yearly">Amazon Prime（年繳）</option>
+            <option value="v1" data-emoji="🎬" data-price="390" data-cycle="monthly">Netflix 標準 4K</option>
+            <option value="v2" data-emoji="▶️" data-price="429" data-cycle="monthly">YouTube Premium 家庭</option>
+            <option value="v3" data-emoji="✨" data-price="270" data-cycle="monthly">Disney+</option>
+            <option value="v4" data-emoji="📦" data-price="199" data-cycle="yearly">Amazon Prime（年繳）</option>
           </optgroup>
           <optgroup label="音樂">
-            <option value="spotify"  data-emoji="🎧" data-price="239" data-cycle="monthly">Spotify 家庭方案</option>
-            <option value="kkbox"    data-emoji="🎼" data-price="250" data-cycle="monthly">KKBOX 家庭方案</option>
+            <option value="m1" data-emoji="🎧" data-price="239" data-cycle="monthly">Spotify 家庭方案</option>
+            <option value="m2" data-emoji="🎼" data-price="250" data-cycle="monthly">KKBOX 家庭方案</option>
           </optgroup>
           <optgroup label="生產力">
-            <option value="notion"   data-emoji="📝" data-price="480" data-cycle="monthly">Notion 團隊</option>
-            <option value="ms365"    data-emoji="💼" data-price="350" data-cycle="monthly">Microsoft 365 家庭</option>
-            <option value="gws"      data-emoji="📧" data-price="300" data-cycle="monthly">Google Workspace</option>
+            <option value="p1" data-emoji="📝" data-price="480" data-cycle="monthly">Notion 團隊</option>
+            <option value="p2" data-emoji="💼" data-price="350" data-cycle="monthly">Microsoft 365 家庭</option>
+            <option value="p3" data-emoji="📧" data-price="300" data-cycle="monthly">Google Workspace</option>
           </optgroup>
           <optgroup label="其他">
-            <option value="custom"   data-emoji="📌" data-price=""    data-cycle="monthly">自訂服務</option>
+            <option value="c0" data-emoji="📌" data-price="" data-cycle="monthly">自訂服務</option>
           </optgroup>
         </select>
       </div>
+      <div class="field full">
+        <label>我在這個訂閱的身份</label>
+        <div class="my-role-pick" id="svc-role-pick">
+          <div class="mrp-opt active" data-role="admin" onclick="pickSvcRole(this)">管理員（我管理這個訂閱）</div>
+          <div class="mrp-opt" data-role="member" onclick="pickSvcRole(this)">成員（我只是其中一位）</div>
+        </div>
+      </div>
       <div class="field"><label>服務名稱</label><input type="text" id="inp-svc-name" placeholder="例：Netflix 家庭" maxlength="30"></div>
-      <div class="field"><label>Emoji 圖示</label><input type="text" id="inp-svc-emoji" placeholder="🎬" maxlength="2"></div>
-      <div class="field"><label>月費（元）</label><input type="number" id="inp-svc-price" placeholder="390" min="0"></div>
+      <div class="field"><label>Emoji</label><input type="text" id="inp-svc-emoji" placeholder="🎬" maxlength="2"></div>
+      <div class="field"><label>訂閱總額（元）</label><input type="number" id="inp-svc-price" placeholder="390" min="0" oninput="syncShare()"></div>
       <div class="field">
         <label>繳費週期</label>
         <select id="inp-svc-cycle">
@@ -420,9 +333,10 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.38;cursor:pointer
           <option value="yearly">每年（÷12 換算月費）</option>
         </select>
       </div>
-      <div class="field"><label>訂閱開始日</label><input type="date" id="inp-svc-start"></div>
+      <div class="field"><label>我的分帳金額（元）</label><input type="number" id="inp-svc-share" placeholder="預設同總額" min="0"></div>
       <div class="field"><label>下次續費日</label><input type="date" id="inp-svc-renew"></div>
-      <div class="field full"><label>備註（選填）</label><input type="text" id="inp-svc-note" placeholder="例：共用家庭帳號" maxlength="50"></div>
+      <div class="field"><label>訂閱開始日</label><input type="date" id="inp-svc-start"></div>
+      <div class="field full"><label>備註（選填）</label><input type="text" id="inp-svc-note" placeholder="例：共用帳號" maxlength="50"></div>
     </div>
     <button class="btn-primary" onclick="addService()">建立訂閱項目</button>
   </div>
@@ -430,61 +344,43 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.38;cursor:pointer
 
 <!-- Tab: Settings -->
 <div id="tab-settings" class="tab-pane">
-
-  <!-- Message template -->
   <div class="settings-section">
     <div class="settings-title">繳費提醒訊息範本</div>
     <div class="settings-card">
       <div class="field">
         <label>訊息內容</label>
-        <textarea id="msg-template" rows="6"></textarea>
-        <div class="hint">
-          可用變數：<code>{name}</code> 成員姓名・<code>{service}</code> 服務名稱・
-          <code>{monthly}</code> 月費・<code>{annual}</code> 年費・
-          <code>{renew}</code> 續費日・<code>{days}</code> 剩餘天數・<code>{role}</code> 角色
-        </div>
+        <textarea id="msg-template" rows="5"></textarea>
+        <div class="hint">可用：<code>{name}</code> <code>{service}</code> <code>{monthly}</code> <code>{annual}</code> <code>{renew}</code> <code>{days}</code></div>
       </div>
-      <div class="settings-row">
+      <div class="btn-row">
         <button class="btn-save" onclick="saveMsgTemplate()">儲存範本</button>
         <button class="btn-secondary" onclick="resetMsgTemplate()">恢復預設</button>
       </div>
     </div>
   </div>
 
-  <!-- ICS Settings -->
   <div class="settings-section">
-    <div class="settings-title">📅 行事曆匯出設定</div>
+    <div class="settings-title">📅 行事曆匯出（.ics）</div>
     <div class="settings-card">
-      <div class="ics-options">
+      <div class="ics-grid">
         <div class="field">
           <label>提前提醒天數</label>
-          <select id="ics-remind-days">
-            <option value="3">3 天前</option>
-            <option value="5">5 天前</option>
-            <option value="7" selected>7 天前</option>
-            <option value="14">14 天前</option>
-          </select>
+          <select id="ics-days"><option value="3">3 天前</option><option value="7" selected>7 天前</option><option value="14">14 天前</option></select>
         </div>
         <div class="field">
           <label>匯出範圍</label>
-          <select id="ics-scope">
-            <option value="all">全部訂閱項目</option>
-            <option value="renew">僅有續費日的項目</option>
-          </select>
+          <select id="ics-scope"><option value="all">全部訂閱</option><option value="renew">僅有續費日的</option></select>
         </div>
       </div>
-      <div class="hint" style="margin-bottom:14px;">
-        匯出 .ics 檔案後，在 Apple 行事曆雙擊開啟，或上傳至 Google 日曆（設定 → 匯入），即可收到系統通知提醒。
-      </div>
-      <button class="btn-save" onclick="exportICS()">⬇ 匯出 .ics 行事曆</button>
+      <div class="hint" style="margin-bottom:12px">下載後雙擊匯入 Apple 行事曆；Google 日曆請至設定 → 匯入。</div>
+      <button class="btn-save" onclick="exportICS()">⬇ 匯出行事曆</button>
     </div>
   </div>
-
 </div>
 
 </div><!-- /wrap -->
 
-<!-- Add member modal -->
+<!-- Add / Edit Member Modal -->
 <div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-head">
@@ -493,383 +389,421 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.38;cursor:pointer
     </div>
     <div class="form-grid">
       <div class="field"><label>姓名 / 暱稱</label><input type="text" id="m-name" placeholder="例：小花" maxlength="20"></div>
-      <div class="field">
-        <label>角色</label>
-        <div class="role-toggle">
-          <div class="role-opt active" data-role="member" onclick="setRole(this)">成員</div>
-          <div class="role-opt" data-role="payer" onclick="setRole(this)">分款者</div>
-          <div class="role-opt" data-role="self" onclick="setRole(this)">自己</div>
-        </div>
-      </div>
+      <div class="field"><label>備註（選填）</label><input type="text" id="m-note" placeholder="例：哥哥帳號" maxlength="30"></div>
       <div class="field"><label>加入日期</label><input type="date" id="m-join"></div>
+      <div class="field"><label>到期日期</label><input type="date" id="m-expire"></div>
       <div class="field"><label>下次繳費日</label><input type="date" id="m-renew"></div>
-      <div class="field full"><label>備註（選填）</label><input type="text" id="m-note" placeholder="例：哥哥帳號" maxlength="30"></div>
+      <div class="field"><label>上次付款日</label><input type="date" id="m-lastpaid"></div>
     </div>
-    <button class="btn-primary" onclick="saveNewMember()">確認加入</button>
+    <button class="btn-primary" id="modal-confirm" onclick="saveMember()">確認加入</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ── DEFAULTS ── */
-const DEFAULT_TEMPLATE = `嗨 {name}！提醒你「{service}」訂閱費用繳費通知 🌿
+const DEFAULT_TEMPLATE=`嗨 {name}！提醒你「{service}」訂閱費用繳費通知 🌿
 
-• 角色：{role}
 • 月費金額：NT$ {monthly}
-• 年度總計：NT$ {annual}
 • 下次續費：{renew}（還有 {days} 天）
 
 請記得在到期前完成轉帳，謝謝你！`;
 
-/* ── STATE ── */
-let data     = JSON.parse(localStorage.getItem('sub_v5') || '{"services":[]}');
-let settings = JSON.parse(localStorage.getItem('sub_settings') || '{}');
-if (!settings.msgTemplate) settings.msgTemplate = DEFAULT_TEMPLATE;
+let data     = JSON.parse(localStorage.getItem('sub_v7')||'{"services":[]}');
+let settings = JSON.parse(localStorage.getItem('sub_cfg2')||'{}');
+if(!settings.msgTemplate) settings.msgTemplate = DEFAULT_TEMPLATE;
 
-function save()         { localStorage.setItem('sub_v5', JSON.stringify(data)); }
-function saveSettings() { localStorage.setItem('sub_settings', JSON.stringify(settings)); }
+function save(){ localStorage.setItem('sub_v7', JSON.stringify(data)); }
+function saveCfg(){ localStorage.setItem('sub_cfg2', JSON.stringify(settings)); }
 
-/* ── UTILS ── */
-function toast(msg) {
-  const el = document.getElementById('toast');
-  el.textContent = msg; el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2400);
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2200);
 }
-function todayStr() { return new Date().toISOString().slice(0,10); }
-function formatDate(s) {
-  if (!s) return '—';
-  const [y,m,d] = s.split('-'); return `${y}/${m}/${d}`;
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function formatDate(s){
+  if(!s) return '—';
+  const[y,m,d]=s.split('-'); return`${y}/${m}/${d}`;
 }
-function daysUntil(s) {
-  if (!s) return null;
-  const t = new Date(); t.setHours(0,0,0,0);
-  return Math.round((new Date(s) - t) / 86400000);
+function daysUntil(s){
+  if(!s) return null;
+  const t=new Date(); t.setHours(0,0,0,0);
+  return Math.round((new Date(s)-t)/86400000);
 }
-function renewInfo(s) {
-  const d = daysUntil(s);
-  if (d === null) return { txt: null, cls: '' };
-  if (d < 0)    return { txt: `逾期${Math.abs(d)}天`, cls: 'rb-overdue' };
-  if (d <= 14)  return { txt: `${d}天後到期`, cls: 'rb-due' };
-  return { txt: `${d}天後`, cls: 'rb-ok' };
+function renewInfo(s){
+  const d=daysUntil(s);
+  if(d===null) return{txt:null,cls:''};
+  if(d<0)      return{txt:`逾期${Math.abs(d)}天`,cls:'rn-overdue'};
+  if(d<=14)    return{txt:`${d}天後到期`,cls:'rn-due'};
+  return{txt:`${d}天後`,cls:'rn-ok'};
 }
-function monthlyAmt(svc) {
-  const p = parseFloat(svc.price) || 0;
-  return svc.cycle === 'yearly' ? p / 12 : p;
+function monthlyAmt(svc){
+  const p=parseFloat(svc.price)||0;
+  return svc.cycle==='yearly' ? p/12 : p;
 }
-function roleLabel(r) {
-  if (r === 'payer') return '分款者'; if (r === 'self') return '自己'; return '成員';
-}
-function roleCls(r) {
-  if (r === 'payer') return 'role-payer'; if (r === 'self') return 'role-self'; return 'role-member';
+function myShare(svc){
+  const s=parseFloat(svc.share);
+  if(!isNaN(s)&&s>0){ return svc.cycle==='yearly' ? s/12 : s; }
+  return monthlyAmt(svc);
 }
 
 /* ── TABS ── */
-function switchTab(id, btn) {
-  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
   btn.classList.add('active');
 }
 
 /* ── SETTINGS ── */
-function loadSettingsUI() { document.getElementById('msg-template').value = settings.msgTemplate; }
-function saveMsgTemplate() {
-  settings.msgTemplate = document.getElementById('msg-template').value;
-  saveSettings(); toast('訊息範本已儲存 ✓');
-}
-function resetMsgTemplate() {
-  settings.msgTemplate = DEFAULT_TEMPLATE;
-  document.getElementById('msg-template').value = DEFAULT_TEMPLATE;
-  saveSettings(); toast('已恢復預設範本');
-}
+function loadSettingsUI(){ document.getElementById('msg-template').value = settings.msgTemplate; }
+function saveMsgTemplate(){ settings.msgTemplate=document.getElementById('msg-template').value; saveCfg(); toast('訊息範本已儲存 ✓'); }
+function resetMsgTemplate(){ settings.msgTemplate=DEFAULT_TEMPLATE; document.getElementById('msg-template').value=DEFAULT_TEMPLATE; saveCfg(); toast('已恢復預設'); }
 
-/* ── ICS EXPORT ── */
-function icsDate(dateStr, offsetDays = 0) {
-  const d = new Date(dateStr);
-  d.setDate(d.getDate() + offsetDays);
-  return d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+/* ── ICS ── */
+function icsDate(s){
+  return new Date(s).toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
 }
-function icsUid() { return Date.now() + '-' + Math.random().toString(36).slice(2) + '@submanager'; }
-
-function exportICS() {
-  const remindDays = -parseInt(document.getElementById('ics-remind-days').value);
-  const scope      = document.getElementById('ics-scope').value;
-  const services   = data.services;
-  const lines      = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//家庭訂閱管理//ZH','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
-  let count = 0;
-
-  services.forEach(svc => {
-    // Service-level renewal event
-    if (svc.renew && (scope === 'all' || scope === 'renew')) {
-      const monthly = Math.round(monthlyAmt(svc));
+function exportICS(){
+  const days=parseInt(document.getElementById('ics-days').value);
+  const scope=document.getElementById('ics-scope').value;
+  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//家庭訂閱管理//ZH','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
+  let count=0;
+  data.services.forEach(svc=>{
+    if(svc.renew&&(scope==='all'||scope==='renew')){
+      const m=Math.round(monthlyAmt(svc));
       lines.push('BEGIN:VEVENT');
-      lines.push(`UID:svc-${svc.id}-${icsUid()}`);
+      lines.push(`UID:svc-${svc.id}@sub`);
       lines.push(`DTSTAMP:${icsDate(todayStr())}`);
       lines.push(`DTSTART;VALUE=DATE:${svc.renew.replace(/-/g,'')}`);
       lines.push(`DTEND;VALUE=DATE:${svc.renew.replace(/-/g,'')}`);
-      lines.push(`SUMMARY:💳 ${svc.name} 續費日`);
-      lines.push(`DESCRIPTION:${svc.name} 訂閱到期\\n月費：NT$ ${monthly}\\n${svc.note || ''}`);
-      lines.push(`BEGIN:VALARM\nTRIGGER:P${Math.abs(remindDays)}DT\nACTION:DISPLAY\nDESCRIPTION:${svc.name} 即將到期，請確認續費\nEND:VALARM`);
-      lines.push('END:VEVENT');
-      count++;
+      lines.push(`SUMMARY:💳 ${svc.name} 續費`);
+      lines.push(`DESCRIPTION:${svc.name}\\n月費 NT$ ${m}`);
+      lines.push(`BEGIN:VALARM\r\nTRIGGER:-P${days}D\r\nACTION:DISPLAY\r\nDESCRIPTION:${svc.name} 即將到期\r\nEND:VALARM`);
+      lines.push('END:VEVENT'); count++;
     }
-
-    // Member-level payment events
-    svc.members.forEach(m => {
-      if (!m.renew) return;
-      const monthly = Math.round(monthlyAmt(svc));
+    svc.members&&svc.members.forEach(mb=>{
+      if(!mb.renew) return;
       lines.push('BEGIN:VEVENT');
-      lines.push(`UID:mbr-${m.id}-${icsUid()}`);
+      lines.push(`UID:mbr-${mb.id}@sub`);
       lines.push(`DTSTAMP:${icsDate(todayStr())}`);
-      lines.push(`DTSTART;VALUE=DATE:${m.renew.replace(/-/g,'')}`);
-      lines.push(`DTEND;VALUE=DATE:${m.renew.replace(/-/g,'')}`);
-      lines.push(`SUMMARY:🌿 ${m.name}｜${svc.name} 繳費日`);
-      lines.push(`DESCRIPTION:${svc.name}\\n成員：${m.name}（${roleLabel(m.role)}）\\n月費：NT$ ${monthly}`);
-      lines.push(`BEGIN:VALARM\nTRIGGER:-P${Math.abs(remindDays)}D\nACTION:DISPLAY\nDESCRIPTION:提醒 ${m.name} 繳交 ${svc.name} 費用 NT$${monthly}\nEND:VALARM`);
-      lines.push('END:VEVENT');
-      count++;
+      lines.push(`DTSTART;VALUE=DATE:${mb.renew.replace(/-/g,'')}`);
+      lines.push(`DTEND;VALUE=DATE:${mb.renew.replace(/-/g,'')}`);
+      lines.push(`SUMMARY:🌿 ${mb.name}｜${svc.name} 繳費`);
+      lines.push(`DESCRIPTION:${svc.name}\\n成員：${mb.name}`);
+      lines.push(`BEGIN:VALARM\r\nTRIGGER:-P${days}D\r\nACTION:DISPLAY\r\nDESCRIPTION:提醒 ${mb.name} 繳交 ${svc.name}\r\nEND:VALARM`);
+      lines.push('END:VEVENT'); count++;
     });
   });
-
-  if (count === 0) { toast('沒有可匯出的事件（請先設定續費日）'); return; }
-
+  if(!count){ toast('沒有可匯出的事件（請先設定續費日）'); return; }
   lines.push('END:VCALENDAR');
-  const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = '家庭訂閱_行事曆.ics';
-  a.click();
-  toast(`✓ 已匯出 ${count} 個行事曆事件`);
+  const blob=new Blob([lines.join('\r\n')],{type:'text/calendar;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='家庭訂閱.ics'; a.click();
+  toast(`✓ 已匯出 ${count} 個事件`);
 }
 
-/* ── PAY STATUS ── */
-function togglePay(svcId, mId, status) {
-  const svc = data.services.find(x => x.id === svcId);
-  const m   = svc?.members.find(x => x.id === mId);
-  if (!m) return;
-  // Toggle: click same status = clear it
-  m.paid = (m.paid === status) ? null : status;
-  save(); render();
-  setTimeout(() => {
-    const card = document.querySelector(`.service-card[data-id="${svcId}"]`);
-    if (card) card.classList.add('open');
-  }, 40);
+/* ── FORM HELPERS ── */
+function pickSvcRole(el){
+  document.querySelectorAll('.mrp-opt').forEach(o=>o.classList.remove('active'));
+  el.classList.add('active');
 }
-
-/* ── PRESET ── */
-function applyPreset() {
-  const sel = document.getElementById('inp-preset');
-  const opt = sel.options[sel.selectedIndex];
-  if (!opt.value) return;
+function applyPreset(){
+  const sel=document.getElementById('inp-preset');
+  const opt=sel.options[sel.selectedIndex];
+  if(!opt.value) return;
   document.getElementById('inp-svc-name').value  = opt.text;
-  document.getElementById('inp-svc-emoji').value = opt.dataset.emoji || '📌';
-  document.getElementById('inp-svc-price').value = opt.dataset.price || '';
-  document.getElementById('inp-svc-cycle').value = opt.dataset.cycle || 'monthly';
+  document.getElementById('inp-svc-emoji').value = opt.dataset.emoji||'📌';
+  document.getElementById('inp-svc-price').value = opt.dataset.price||'';
+  document.getElementById('inp-svc-cycle').value = opt.dataset.cycle||'monthly';
+  syncShare();
 }
-
-/* ── ADD PANEL ── */
-function toggleAddPanel() {
-  const panel = document.getElementById('add-svc-panel');
-  const icon  = document.getElementById('add-btn-icon');
-  panel.classList.toggle('open');
-  icon.textContent = panel.classList.contains('open') ? '✕' : '＋';
+function syncShare(){
+  const price=document.getElementById('inp-svc-price').value;
+  const share=document.getElementById('inp-svc-share');
+  if(!share.value) share.placeholder=price?`預設 ${price} 元`:'預設同總額';
+}
+function toggleAddPanel(){
+  const p=document.getElementById('add-svc-panel');
+  const i=document.getElementById('add-btn-icon');
+  p.classList.toggle('open');
+  i.textContent=p.classList.contains('open')?'✕':'＋';
 }
 
 /* ── ADD SERVICE ── */
-function addService() {
+function addService(){
   const name  = document.getElementById('inp-svc-name').value.trim();
-  const emoji = document.getElementById('inp-svc-emoji').value.trim() || '📌';
+  const emoji = document.getElementById('inp-svc-emoji').value.trim()||'📌';
   const price = document.getElementById('inp-svc-price').value.trim();
+  const share = document.getElementById('inp-svc-share').value.trim();
   const cycle = document.getElementById('inp-svc-cycle').value;
   const start = document.getElementById('inp-svc-start').value;
   const renew = document.getElementById('inp-svc-renew').value;
   const note  = document.getElementById('inp-svc-note').value.trim();
-  if (!name || !price) { toast('請填寫服務名稱和費用'); return; }
-  data.services.push({ id: Date.now(), name, emoji, price, cycle, start: start || todayStr(), renew, note, members: [] });
-  save(); render();
-  toast(`✓ 已建立「${name}」`);
-  ['inp-svc-name','inp-svc-emoji','inp-svc-price','inp-svc-renew','inp-svc-start','inp-svc-note'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('inp-preset').value = '';
-  document.getElementById('inp-svc-cycle').value = 'monthly';
+  const myRole= document.querySelector('.mrp-opt.active')?.dataset.role||'admin';
+  if(!name||!price){ toast('請填寫服務名稱和費用'); return; }
+  data.services.push({id:Date.now(),name,emoji,price,share,cycle,start:start||todayStr(),renew,note,myRole,members:[]});
+  save(); render(); toast(`✓ 已建立「${name}」`);
+  ['inp-svc-name','inp-svc-emoji','inp-svc-price','inp-svc-share','inp-svc-renew','inp-svc-start','inp-svc-note'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('inp-preset').value='';
+  document.getElementById('inp-svc-cycle').value='monthly';
+  document.querySelectorAll('.mrp-opt').forEach(o=>o.classList.remove('active'));
+  document.querySelector('.mrp-opt[data-role="admin"]').classList.add('active');
   toggleAddPanel();
 }
 
 /* ── DELETE SERVICE ── */
-function deleteService(id) {
-  const s = data.services.find(x => x.id === id);
-  if (!s || !confirm(`確定刪除「${s.name}」嗎？`)) return;
-  data.services = data.services.filter(x => x.id !== id);
+function deleteService(id){
+  const s=data.services.find(x=>x.id===id);
+  if(!s||!confirm(`確定刪除「${s.name}」嗎？`)) return;
+  data.services=data.services.filter(x=>x.id!==id);
   save(); render(); toast(`已刪除 ${s.name}`);
 }
 
 /* ── TOGGLE CARD ── */
-function toggleCard(id) {
-  const card = document.querySelector(`.service-card[data-id="${id}"]`);
-  if (card) card.classList.toggle('open');
+function toggleCard(id){
+  const card=document.querySelector(`.service-card[data-id="${id}"]`);
+  if(card) card.classList.toggle('open');
+}
+
+/* ── INLINE FINANCE EDIT ── */
+function startEditFinance(svcId,field){
+  const svc=data.services.find(x=>x.id===svcId);
+  if(!svc) return;
+  const cell=document.getElementById(`fin-${field}-${svcId}`);
+  if(!cell) return;
+  const cur=svc[field]||'';
+  cell.innerHTML=`<div class="fin-label">${field==='price'?'訂閱總額 ✎':'我的分帳 ✎'}</div><input class="fin-input" type="number" value="${cur}" min="0" id="fi-${svcId}-${field}" onblur="saveFinance(${svcId},'${field}',this.value)" onkeydown="if(event.key==='Enter')this.blur()" autofocus>`;
+  const inp=document.getElementById(`fi-${svcId}-${field}`);
+  if(inp){inp.focus();inp.select();}
+}
+function saveFinance(svcId,field,val){
+  const svc=data.services.find(x=>x.id===svcId);
+  if(!svc) return;
+  svc[field]=val; save(); render();
+  setTimeout(()=>{const c=document.querySelector(`.service-card[data-id="${svcId}"]`);if(c)c.classList.add('open');},40);
 }
 
 /* ── MODAL ── */
-let _editingSvcId = null;
-function openAddMember(svcId) {
-  _editingSvcId = svcId;
-  const svc = data.services.find(x => x.id === svcId);
-  document.getElementById('modal-title').textContent = `新增成員 — ${svc.name}`;
-  document.getElementById('m-name').value  = '';
-  document.getElementById('m-join').value  = todayStr();
-  document.getElementById('m-renew').value = svc.renew || '';
-  document.getElementById('m-note').value  = '';
-  document.querySelectorAll('.role-opt').forEach(o => o.classList.remove('active'));
-  document.querySelector('.role-opt[data-role="member"]').classList.add('active');
+let _svcId=null, _mId=null;
+
+function openAddMember(svcId){
+  _svcId=svcId; _mId=null;
+  const svc=data.services.find(x=>x.id===svcId);
+  document.getElementById('modal-title').textContent=`新增成員 — ${svc.name}`;
+  document.getElementById('modal-confirm').textContent='確認加入';
+  ['m-name','m-note','m-expire','m-lastpaid'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('m-join').value=todayStr();
+  document.getElementById('m-renew').value=svc.renew||'';
   document.getElementById('modal-bg').classList.add('open');
 }
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('modal-bg'))
+function openEditMember(svcId,mId){
+  _svcId=svcId; _mId=mId;
+  const svc=data.services.find(x=>x.id===svcId);
+  const m=svc?.members.find(x=>x.id===mId);
+  if(!m) return;
+  document.getElementById('modal-title').textContent=`編輯 — ${m.name}`;
+  document.getElementById('modal-confirm').textContent='儲存變更';
+  document.getElementById('m-name').value    = m.name||'';
+  document.getElementById('m-note').value    = m.note||'';
+  document.getElementById('m-join').value    = m.join||'';
+  document.getElementById('m-expire').value  = m.expire||'';
+  document.getElementById('m-renew').value   = m.renew||'';
+  document.getElementById('m-lastpaid').value= m.lastpaid||'';
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal(e){
+  if(!e||e.target===document.getElementById('modal-bg'))
     document.getElementById('modal-bg').classList.remove('open');
 }
-function setRole(el) {
-  document.querySelectorAll('.role-opt').forEach(o => o.classList.remove('active'));
-  el.classList.add('active');
-}
-function saveNewMember() {
-  const name  = document.getElementById('m-name').value.trim();
-  const role  = document.querySelector('.role-opt.active')?.dataset.role || 'member';
-  const join  = document.getElementById('m-join').value;
-  const renew = document.getElementById('m-renew').value;
-  const note  = document.getElementById('m-note').value.trim();
-  if (!name) { toast('請填寫姓名'); return; }
-  const svc = data.services.find(x => x.id === _editingSvcId);
-  if (!svc) return;
-  svc.members.push({ id: Date.now(), name, role, join: join || todayStr(), renew, note, paid: null });
+function saveMember(){
+  const name    = document.getElementById('m-name').value.trim();
+  const note    = document.getElementById('m-note').value.trim();
+  const join    = document.getElementById('m-join').value;
+  const expire  = document.getElementById('m-expire').value;
+  const renew   = document.getElementById('m-renew').value;
+  const lastpaid= document.getElementById('m-lastpaid').value;
+  if(!name){ toast('請填寫姓名'); return; }
+  const svc=data.services.find(x=>x.id===_svcId);
+  if(!svc) return;
+  if(_mId){
+    const m=svc.members.find(x=>x.id===_mId);
+    if(m) Object.assign(m,{name,note,join,expire,renew,lastpaid});
+    toast(`已更新 ${name}`);
+  } else {
+    svc.members.push({id:Date.now(),name,note,join:join||todayStr(),expire,renew,lastpaid,paid:null});
+    toast(`✓ 已加入 ${name}`);
+  }
   save(); render();
   document.getElementById('modal-bg').classList.remove('open');
-  toast(`✓ 已加入 ${name}`);
-  setTimeout(() => {
-    const card = document.querySelector(`.service-card[data-id="${_editingSvcId}"]`);
-    if (card) card.classList.add('open');
-  }, 50);
+  setTimeout(()=>{const c=document.querySelector(`.service-card[data-id="${_svcId}"]`);if(c)c.classList.add('open');},50);
+}
+
+/* ── PAY STATUS ── */
+function togglePay(svcId,mId,status){
+  const svc=data.services.find(x=>x.id===svcId);
+  const m=svc?.members.find(x=>x.id===mId);
+  if(!m) return;
+  m.paid=(m.paid===status)?null:status;
+  if(m.paid==='paid'&&!m.lastpaid) m.lastpaid=todayStr();
+  save(); render();
+  setTimeout(()=>{const c=document.querySelector(`.service-card[data-id="${svcId}"]`);if(c)c.classList.add('open');},40);
 }
 
 /* ── DELETE MEMBER ── */
-function deleteMember(svcId, mId) {
-  const svc = data.services.find(x => x.id === svcId);
-  const m   = svc?.members.find(x => x.id === mId);
-  if (!m || !confirm(`移除「${m.name}」？`)) return;
-  svc.members = svc.members.filter(x => x.id !== mId);
+function deleteMember(svcId,mId){
+  const svc=data.services.find(x=>x.id===svcId);
+  const m=svc?.members.find(x=>x.id===mId);
+  if(!m||!confirm(`移除「${m.name}」？`)) return;
+  svc.members=svc.members.filter(x=>x.id!==mId);
   save(); render(); toast(`已移除 ${m.name}`);
-  setTimeout(() => {
-    const card = document.querySelector(`.service-card[data-id="${svcId}"]`);
-    if (card) card.classList.add('open');
-  }, 50);
+  setTimeout(()=>{const c=document.querySelector(`.service-card[data-id="${svcId}"]`);if(c)c.classList.add('open');},50);
 }
 
-/* ── COPY MESSAGE ── */
-function copyMemberMsg(svcId, mId, btnEl) {
-  const svc = data.services.find(x => x.id === svcId);
-  const m   = svc?.members.find(x => x.id === mId);
-  if (!svc || !m) return;
-  const monthly = Math.round(monthlyAmt(svc));
-  const annual  = monthly * 12;
-  const d = daysUntil(m.renew);
-  const msg = settings.msgTemplate
-    .replace(/{name}/g, m.name)
-    .replace(/{service}/g, svc.name)
-    .replace(/{monthly}/g, monthly.toLocaleString())
-    .replace(/{annual}/g, annual.toLocaleString())
-    .replace(/{renew}/g, m.renew ? formatDate(m.renew) : '（未設定）')
-    .replace(/{days}/g, d !== null ? d : '—')
-    .replace(/{role}/g, roleLabel(m.role));
-  navigator.clipboard.writeText(msg).then(() => {
-    btnEl.textContent = '✓ 已複製';
-    btnEl.classList.add('copied');
-    setTimeout(() => { btnEl.textContent = `🍃 ${m.name}`; btnEl.classList.remove('copied'); }, 2200);
+/* ── COPY MSG ── */
+function copyMsg(svcId,mId,btnEl){
+  const svc=data.services.find(x=>x.id===svcId);
+  const m=svc?.members.find(x=>x.id===mId);
+  if(!svc||!m) return;
+  const monthly=Math.round(monthlyAmt(svc));
+  const d=daysUntil(m.renew);
+  const msg=settings.msgTemplate
+    .replace(/{name}/g,m.name)
+    .replace(/{service}/g,svc.name)
+    .replace(/{monthly}/g,monthly.toLocaleString())
+    .replace(/{annual}/g,(monthly*12).toLocaleString())
+    .replace(/{renew}/g,m.renew?formatDate(m.renew):'（未設定）')
+    .replace(/{days}/g,d!==null?d:'—');
+  navigator.clipboard.writeText(msg).then(()=>{
+    const orig=btnEl.textContent;
+    btnEl.textContent='✓ 已複製'; btnEl.classList.add('copied');
+    setTimeout(()=>{btnEl.textContent=orig; btnEl.classList.remove('copied');},2200);
     toast('訊息已複製 ✓');
-  }).catch(() => toast('複製失敗'));
+  }).catch(()=>toast('複製失敗'));
 }
 
 /* ── RENDER ── */
-function render() {
-  const services     = data.services;
-  const totalMonthly = services.reduce((s,x) => s + monthlyAmt(x), 0);
-  const totalAnnual  = totalMonthly * 12;
+function render(){
+  const services=data.services;
+  const totalM=services.reduce((s,x)=>s+myShare(x),0);
 
-  document.getElementById('st-services').innerHTML = `${services.length} <small>項</small>`;
-  document.getElementById('st-monthly').innerHTML  = `${Math.round(totalMonthly).toLocaleString()} <small>元 / 月</small>`;
-  document.getElementById('st-annual').innerHTML   = `${Math.round(totalAnnual).toLocaleString()} <small>元 / 年</small>`;
+  document.getElementById('st-services').innerHTML=`${services.length} <small>項</small>`;
+  document.getElementById('st-monthly').innerHTML =`${Math.round(totalM).toLocaleString()} <small>元</small>`;
+  document.getElementById('st-annual').innerHTML  =`${Math.round(totalM*12).toLocaleString()} <small>元</small>`;
 
-  const list = document.getElementById('service-list');
-  if (!services.length) {
-    list.innerHTML = `<div class="empty"><div class="empty-art">🌱</div><p>尚未新增任何訂閱項目<br>點下方「新增訂閱項目」開始記錄吧</p></div>`;
+  const list=document.getElementById('service-list');
+  if(!services.length){
+    list.innerHTML=`<div class="empty"><div class="empty-art">🌱</div><p>尚未新增任何訂閱項目<br>點下方按鈕新增第一個</p></div>`;
     return;
   }
 
-  list.innerHTML = services.map(svc => {
+  list.innerHTML=services.map(svc=>{
+    const isAdmin = svc.myRole !== 'member'; // default: admin
     const ri      = renewInfo(svc.renew);
     const monthly = monthlyAmt(svc);
+    const share   = myShare(svc);
 
-    // Debt calculation: members with role != self and paid != 'paid'
-    const debtors = svc.members.filter(m => m.role !== 'self' && m.paid !== 'paid');
-    const debtTotal = debtors.length > 0 ? Math.round(monthly) * debtors.length : 0;
+    /* debtors = members where paid != 'paid' */
+    const debtors = svc.members.filter(m=>m.paid!=='paid');
+    const debtTotal = debtors.length * Math.round(monthly);
 
+    /* ── finance cells ── */
+    const finCells = isAdmin
+      ? `<div class="fin-cell tap" id="fin-price-${svc.id}" onclick="startEditFinance(${svc.id},'price')">
+           <div class="fin-label">訂閱總額 <span class="fin-edit">✎</span></div>
+           <div class="fin-val">NT$ ${Math.round(monthly).toLocaleString()}<small>/月</small></div>
+         </div>
+         <div class="fin-cell tap" id="fin-share-${svc.id}" onclick="startEditFinance(${svc.id},'share')">
+           <div class="fin-label">我的分帳 <span class="fin-edit">✎</span></div>
+           <div class="fin-val">NT$ ${Math.round(share).toLocaleString()}<small>/月</small></div>
+         </div>`
+      : `<div class="fin-cell">
+           <div class="fin-label">我要付</div>
+           <div class="fin-val">NT$ ${Math.round(share).toLocaleString()}<small>/月</small></div>
+         </div>
+         <div class="fin-cell">
+           <div class="fin-label">年度合計</div>
+           <div class="fin-val">NT$ ${Math.round(share*12).toLocaleString()}<small>/年</small></div>
+         </div>`;
+
+    /* ── members ── */
     const membersHtml = svc.members.length
-      ? svc.members.map(m => {
-          const mri = renewInfo(m.renew);
-          const isPaid = m.paid === 'paid';
-          const isUnpaid = m.paid === 'unpaid';
+      ? svc.members.map(m=>{
+          const mri    = renewInfo(m.renew);
+          const isPaid = m.paid==='paid';
+          const isUp   = m.paid==='unpaid';
+          const parts  = [];
+          if(m.join)    parts.push(`加入 ${formatDate(m.join)}`);
+          if(m.expire)  parts.push(`到期 ${formatDate(m.expire)}`);
+          if(m.renew)   parts.push(`繳費 ${formatDate(m.renew)}`);
+          if(m.lastpaid)parts.push(`上次付款 ${formatDate(m.lastpaid)}`);
           return `<div class="member-row">
-            <div class="member-avatar-sm" style="${isPaid ? 'background:var(--green-pale);border-color:rgba(90,138,90,.3);color:var(--green)' : isUnpaid ? 'background:var(--red-pale);border-color:rgba(176,90,74,.3);color:var(--red-soft)' : ''}">${m.name.slice(0,1)}</div>
+            <div class="m-avatar ${isPaid?'paid':isUp?'unpaid':''}">${m.name.slice(0,1)}</div>
             <div>
-              <div class="member-name-sm">${m.name}${m.note ? ` <span style="color:var(--text-dim);font-size:10px;font-weight:400">· ${m.note}</span>` : ''}</div>
-              <div class="member-dates">加入 ${formatDate(m.join)}${m.renew ? ` · 續費 ${formatDate(m.renew)}` : ''}</div>
+              <div class="m-name">${m.name}${m.note?` <span style="color:var(--text-dim);font-size:9.5px">· ${m.note}</span>`:''}
+              </div>
+              <div class="m-dates">${parts.join(' · ')||'—'}</div>
+              ${mri.txt?`<span class="renew-badge ${mri.cls}">${mri.txt}</span>`:''}
             </div>
-            <span class="role-badge ${roleCls(m.role)}">${roleLabel(m.role)}</span>
-            ${mri.txt ? `<span class="renew-badge ${mri.cls}">${mri.txt}</span>` : '<span></span>'}
-            <div class="pay-toggle" title="點選記錄付款狀態">
-              <div class="pay-opt ${isPaid ? 'paid' : ''}" onclick="togglePay(${svc.id},${m.id},'paid')">已付</div>
-              <div class="pay-opt ${isUnpaid ? 'unpaid' : ''}" onclick="togglePay(${svc.id},${m.id},'unpaid')">未付</div>
+            <div class="m-actions">
+              <div class="pay-toggle">
+                <div class="pay-opt ${isPaid?'paid':''}" onclick="togglePay(${svc.id},${m.id},'paid')">已付</div>
+                <div class="pay-opt ${isUp?'unpaid':''}" onclick="togglePay(${svc.id},${m.id},'unpaid')">未付</div>
+              </div>
+              ${isAdmin?`<div style="display:flex;gap:5px">
+                <button class="btn-sm edit" onclick="openEditMember(${svc.id},${m.id})">✎</button>
+                <button class="btn-sm" onclick="deleteMember(${svc.id},${m.id})">✕</button>
+              </div>`:''}
             </div>
-            <button class="btn-ghost" onclick="deleteMember(${svc.id},${m.id})">✕</button>
           </div>`;
         }).join('')
-      : `<div style="font-size:12px;color:var(--text-dim);padding:6px 0;">尚無成員</div>`;
+      : `<div style="font-size:12px;color:var(--text-dim);padding:6px 0">尚無成員</div>`;
 
-    // Debt summary block
-    const debtHtml = debtors.length > 0
+    /* ── debt block (admin only) ── */
+    const debtHtml = isAdmin && debtors.length
       ? `<div class="debt-summary">
-          <div class="debt-label">💰 待收款 NT$ ${debtTotal.toLocaleString()}</div>
-          <div class="debt-items">
-            ${debtors.map(m => `<div class="debt-item">${m.name} NT$ ${Math.round(monthly).toLocaleString()}</div>`).join('')}
-          </div>
-        </div>` : '';
+           <div class="debt-head">💰 待收款 NT$ ${debtTotal.toLocaleString()}</div>
+           <div class="debt-items">${debtors.map(m=>`<div class="debt-item">${m.name} NT$ ${Math.round(monthly).toLocaleString()}</div>`).join('')}</div>
+         </div>` : '';
 
-    const msgBtns = svc.members.length
-      ? `<div class="msg-member-btns">
-          ${svc.members.map(m => `<button class="msg-copy-btn" onclick="copyMemberMsg(${svc.id},${m.id},this)">🍃 ${m.name}</button>`).join('')}
-        </div>` : '';
+    /* ── msg btns (admin only) ── */
+    const msgBtns = isAdmin && svc.members.length
+      ? `<div class="msg-btns">${svc.members.map(m=>`<button class="msg-btn" onclick="copyMsg(${svc.id},${m.id},this)">🍃 ${m.name}</button>`).join('')}</div>`
+      : '';
 
-    const debtPill = debtors.length > 0
-      ? `<span class="debt-pill">待收 NT$ ${debtTotal.toLocaleString()}</span>` : '';
+    const roleBadgeCls  = isAdmin ? 'admin'  : 'member';
+    const roleBadgeTxt  = isAdmin ? '管理員' : '成員';
+    const debtPill      = isAdmin && debtors.length ? `<span class="debt-pill">待收 NT$${debtTotal.toLocaleString()}</span>` : '';
+    const cardRoleCls   = isAdmin ? 'role-admin' : 'role-member';
 
-    return `<div class="service-card" data-id="${svc.id}">
+    return `<div class="service-card ${cardRoleCls}" data-id="${svc.id}">
       <div class="svc-header" onclick="toggleCard(${svc.id})">
         <div class="svc-left">
           <div class="svc-emoji">${svc.emoji}</div>
-          <div>
-            <div class="svc-name">${svc.name} ${debtPill}</div>
-            <div class="svc-meta">${svc.cycle==='yearly'?'年繳':'月繳'} · ${svc.members.length} 位成員${svc.note?' · '+svc.note:''}${ri.txt?` · <span style="color:var(--amber)">${ri.txt}</span>`:''}</div>
+          <div class="svc-text">
+            <div class="svc-name-row">
+              <span class="svc-name">${svc.name}</span>
+              <span class="my-role-badge ${roleBadgeCls}">${roleBadgeTxt}</span>
+              ${debtPill}
+            </div>
+            <div class="svc-meta">${svc.cycle==='yearly'?'年繳':'月繳'} · ${svc.members.length} 人${svc.note?' · '+svc.note:''}${ri.txt?` · <span style="color:var(--amber)">${ri.txt}</span>`:''}</div>
           </div>
         </div>
         <div class="svc-right">
-          <div class="svc-price">NT$ ${Math.round(monthly).toLocaleString()}<small>/ 月</small></div>
-          <button class="btn-ghost" onclick="event.stopPropagation();deleteService(${svc.id})">✕</button>
+          <div>
+            <div class="svc-price">NT$ ${Math.round(share).toLocaleString()}</div>
+            <small style="font-size:9px;color:var(--text-dim);display:block;text-align:right">/ 月</small>
+          </div>
+          <button class="btn-sm" onclick="event.stopPropagation();deleteService(${svc.id})">✕</button>
           <span class="chevron">▾</span>
         </div>
       </div>
       <div class="svc-body">
+        <div class="finance-row">${finCells}</div>
         ${membersHtml}
         ${debtHtml}
-        <div class="svc-footer">
-          <button class="btn-add-member" onclick="openAddMember(${svc.id})">＋ 新增成員</button>
+        <div class="card-footer">
+          ${isAdmin?`<button class="btn-add-member" onclick="openAddMember(${svc.id})">＋ 新增成員</button>`:'<span></span>'}
           ${msgBtns}
         </div>
       </div>
