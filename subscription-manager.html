@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家庭訂閱管理</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:     #fafaf8;
+  --paper:     #f4f2ee;
+  --paper2:    #eceae3;
+  --border:    #dddad1;
+  --border2:   #c6c2b7;
+  --sage:      #6b7c65;
+  --sage-dim:  #a3b09d;
+  --sage-pale: #d4ddd1;
+  --moss:      #3d4f3a;
+  --moss-pale: #eef1eb;
+  --earth:     #8a7560;
+  --text:      #2c2c27;
+  --text-mid:  #6b6860;
+  --text-dim:  #9e9b93;
+  --amber:     #c47c2b;
+  --amber-pale:#fdf3e3;
+  --red-soft:  #b05a4a;
+  --red-pale:  #fdf0ee;
+  --green:     #5a8a5a;
+  --green-pale:#edf5ed;
+  --r:         10px;
+  --r-lg:      16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--white);color:var(--text);
+  font-family:'Zen Kaku Gothic New',sans-serif;font-weight:400;
+  min-height:100vh;padding-bottom:80px;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 55% 35% at 10% 15%,rgba(107,124,101,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 45% 55% at 88% 82%,rgba(107,124,101,.05) 0%,transparent 55%);
+  pointer-events:none;z-index:0;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+/* HEADER */
+header{
+  padding:40px 0 28px;border-bottom:1px solid var(--border);
+  margin-bottom:28px;display:flex;align-items:flex-end;
+  justify-content:space-between;gap:16px;
+}
+.eyebrow{
+  font-size:10px;letter-spacing:.28em;color:var(--sage);
+  text-transform:uppercase;margin-bottom:8px;
+  display:flex;align-items:center;gap:8px;font-weight:500;
+}
+.eyebrow::before{content:'';display:inline-block;width:16px;height:1px;background:var(--sage-dim);}
+h1{font-size:clamp(22px,4.5vw,32px);font-weight:700;color:var(--moss);letter-spacing:-.01em;}
+.header-nav{display:flex;gap:8px;}
+.nav-btn{
+  background:none;border:1px solid var(--border);border-radius:8px;
+  padding:8px 16px;font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:12px;font-weight:500;color:var(--text-mid);
+  cursor:pointer;transition:all .17s;letter-spacing:.04em;
+}
+.nav-btn:hover{border-color:var(--sage);color:var(--moss);background:var(--moss-pale);}
+.nav-btn.active{background:var(--moss);color:white;border-color:var(--moss);}
+
+/* STATS */
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);border-radius:var(--r);
+  overflow:hidden;border:1px solid var(--border);margin-bottom:28px;
+}
+.stat{background:var(--paper);padding:16px 18px;transition:background .18s;}
+.stat:hover{background:var(--paper2);}
+.stat-label{font-size:9.5px;letter-spacing:.2em;color:var(--text-dim);text-transform:uppercase;margin-bottom:6px;font-weight:500;}
+.stat-val{font-size:20px;font-weight:700;color:var(--moss);line-height:1;}
+.stat-val small{font-size:10px;color:var(--text-dim);margin-left:3px;font-weight:400;}
+
+/* TABS */
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* SERVICE LIST */
+.service-list{display:flex;flex-direction:column;gap:10px;}
+.service-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;
+  transition:box-shadow .18s,border-color .18s;animation:fadeUp .22s ease;
+}
+.service-card:hover{border-color:var(--border2);box-shadow:0 2px 14px rgba(0,0,0,.06);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+.svc-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:15px 18px;cursor:pointer;gap:12px;user-select:none;
+}
+.svc-left{display:flex;align-items:center;gap:12px;}
+.svc-emoji{
+  width:36px;height:36px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;background:var(--moss-pale);
+}
+.svc-name{font-size:14px;font-weight:700;color:var(--text);line-height:1.2;}
+.svc-meta{font-size:10.5px;color:var(--text-dim);margin-top:2px;letter-spacing:.02em;}
+.svc-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.svc-price{font-size:15px;font-weight:700;color:var(--moss);text-align:right;}
+.svc-price small{font-size:10px;color:var(--text-dim);font-weight:400;display:block;}
+.chevron{font-size:11px;color:var(--text-dim);transition:transform .22s;}
+.service-card.open .chevron{transform:rotate(180deg);}
+
+/* Debt pill on service header */
+.debt-pill{
+  font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;
+  background:var(--red-pale);color:var(--red-soft);
+  border:1px solid rgba(176,90,74,.2);white-space:nowrap;
+}
+
+.svc-body{display:none;border-top:1px solid var(--border);background:var(--paper);padding:14px 18px;}
+.service-card.open .svc-body{display:block;}
+
+/* MEMBER ROW */
+.member-row{
+  display:grid;grid-template-columns:28px 1fr auto auto auto auto;
+  align-items:center;gap:8px;
+  padding:9px 0;border-bottom:1px solid var(--border);
+}
+.member-row:last-of-type{border-bottom:none;}
+.member-avatar-sm{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--moss-pale);border:1px solid var(--sage-pale);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--moss);font-weight:700;flex-shrink:0;
+}
+.member-name-sm{font-size:13px;font-weight:500;color:var(--text);}
+.member-dates{font-size:10.5px;color:var(--text-dim);margin-top:1px;}
+
+.role-badge{
+  font-size:9.5px;font-weight:700;padding:2px 8px;
+  border-radius:20px;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;
+}
+.role-payer {background:rgba(61,79,58,.1);color:var(--moss);}
+.role-member{background:rgba(107,124,101,.12);color:var(--sage);}
+.role-self  {background:rgba(196,124,43,.1);color:var(--amber);}
+
+.renew-badge{font-size:9.5px;font-weight:500;padding:2px 8px;border-radius:20px;flex-shrink:0;white-space:nowrap;}
+.rb-ok     {background:rgba(90,138,90,.08);color:var(--green);}
+.rb-due    {background:rgba(196,124,43,.1);color:var(--amber);}
+.rb-overdue{background:rgba(176,90,74,.1);color:var(--red-soft);}
+
+/* PAY STATUS TOGGLE */
+.pay-toggle{
+  display:inline-flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;flex-shrink:0;
+}
+.pay-opt{
+  padding:4px 9px;font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:10.5px;font-weight:700;cursor:pointer;
+  transition:background .15s,color .15s;user-select:none;
+  border-right:1px solid var(--border);letter-spacing:.04em;
+}
+.pay-opt:last-child{border-right:none;}
+.pay-opt.paid  {background:var(--green-pale);color:var(--green);}
+.pay-opt.unpaid{background:var(--red-pale);color:var(--red-soft);}
+.pay-opt:not(.paid):not(.unpaid){color:var(--text-dim);background:transparent;}
+
+/* DEBT SUMMARY */
+.debt-summary{
+  background:var(--amber-pale);border:1px solid rgba(196,124,43,.25);
+  border-radius:var(--r);padding:12px 16px;margin-top:12px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+}
+.debt-label{font-size:11px;font-weight:700;color:var(--amber);}
+.debt-items{display:flex;flex-wrap:wrap;gap:6px;}
+.debt-item{
+  font-size:11px;background:white;border:1px solid rgba(196,124,43,.2);
+  border-radius:6px;padding:3px 10px;color:var(--amber);font-weight:500;
+}
+
+/* FOOTER INSIDE CARD */
+.svc-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding-top:12px;margin-top:8px;flex-wrap:wrap;
+}
+.btn-ghost{
+  background:transparent;border:1px solid var(--border);
+  border-radius:6px;color:var(--text-dim);padding:5px 8px;font-size:12px;
+  cursor:pointer;transition:all .16s;line-height:1;
+  font-family:'Zen Kaku Gothic New',sans-serif;
+}
+.btn-ghost:hover{border-color:var(--red-soft);color:var(--red-soft);}
+.btn-add-member{
+  background:var(--moss-pale);border:1px solid var(--sage-pale);
+  border-radius:6px;color:var(--moss);
+  font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:11px;font-weight:700;padding:8px 14px;
+  cursor:pointer;transition:all .16s;letter-spacing:.06em;
+}
+.btn-add-member:hover{background:var(--moss);color:white;}
+.msg-member-btns{display:flex;flex-wrap:wrap;gap:6px;}
+.msg-copy-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--white);border:1px solid var(--border);border-radius:6px;
+  padding:7px 11px;font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:11px;color:var(--text-dim);cursor:pointer;transition:all .16s;font-weight:500;
+}
+.msg-copy-btn:hover{border-color:var(--sage);color:var(--sage);background:var(--moss-pale);}
+.msg-copy-btn.copied{border-color:var(--green);color:var(--green);}
+
+/* ICS BUTTON */
+.btn-ics{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--white);border:1px solid var(--border);border-radius:6px;
+  padding:7px 12px;font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:11px;color:var(--text-dim);cursor:pointer;transition:all .16s;font-weight:500;
+}
+.btn-ics:hover{border-color:var(--moss);color:var(--moss);background:var(--moss-pale);}
+
+/* ADD SERVICE */
+.btn-add-service{
+  width:100%;margin-top:14px;padding:13px 20px;
+  background:var(--moss);color:var(--white);border:none;border-radius:var(--r-lg);
+  font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:.12em;
+  cursor:pointer;transition:all .17s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-add-service:hover{background:#2e3d2c;transform:translateY(-1px);box-shadow:0 4px 14px rgba(61,79,58,.18);}
+.add-svc-panel{
+  display:none;background:var(--paper);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:24px;margin-top:14px;animation:fadeUp .2s ease;
+}
+.add-svc-panel.open{display:block;}
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.panel-title{font-size:11px;letter-spacing:.2em;color:var(--sage);text-transform:uppercase;font-weight:700;}
+
+/* SETTINGS */
+.settings-section{margin-bottom:28px;}
+.settings-title{
+  font-size:11px;letter-spacing:.2em;color:var(--sage);text-transform:uppercase;
+  font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);
+}
+.settings-card{background:var(--paper);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px 24px;}
+.settings-row{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;margin-top:4px;}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.field:last-child{margin-bottom:0;}
+.field.full{grid-column:1/-1;}
+label{font-size:10px;letter-spacing:.18em;color:var(--text-mid);text-transform:uppercase;font-weight:500;}
+input,select,textarea{
+  background:var(--white);border:1px solid var(--border);border-radius:6px;
+  padding:10px 13px;font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:13px;color:var(--text);outline:none;
+  transition:border-color .17s,box-shadow .17s;-webkit-appearance:none;width:100%;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(107,124,101,.1);}
+input::placeholder,textarea::placeholder{color:var(--text-dim);}
+textarea{resize:vertical;min-height:100px;line-height:1.7;}
+select option{background:white;}
+input[type="date"]::-webkit-calendar-picker-indicator{opacity:.38;cursor:pointer;}
+.hint{font-size:10.5px;color:var(--text-dim);line-height:1.6;margin-top:4px;}
+.hint code{background:var(--paper2);border-radius:3px;padding:1px 5px;font-family:monospace;font-size:10px;color:var(--earth);}
+
+/* BUTTONS GENERIC */
+.btn-primary{
+  width:100%;padding:11px 20px;background:var(--moss);color:var(--white);
+  border:none;border-radius:6px;font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:.12em;cursor:pointer;transition:all .17s;margin-top:6px;
+}
+.btn-primary:hover{background:#2e3d2c;}
+.btn-save{
+  padding:10px 22px;background:var(--moss);color:var(--white);border:none;
+  border-radius:6px;font-family:'Zen Kaku Gothic New',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:.1em;cursor:pointer;transition:all .17s;
+}
+.btn-save:hover{background:#2e3d2c;}
+.btn-secondary{
+  padding:10px 18px;background:var(--paper2);color:var(--text-mid);
+  border:1px solid var(--border);border-radius:6px;
+  font-family:'Zen Kaku Gothic New',sans-serif;font-size:12px;font-weight:500;
+  cursor:pointer;transition:all .17s;
+}
+.btn-secondary:hover{border-color:var(--border2);color:var(--text);}
+
+/* MODAL */
+.modal-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(44,44,39,.3);z-index:200;
+  align-items:center;justify-content:center;backdrop-filter:blur(2px);
+}
+.modal-bg.open{display:flex;}
+.modal-box{
+  background:var(--white);border-radius:var(--r-lg);
+  padding:26px 24px;max-width:460px;width:calc(100% - 40px);
+  position:relative;max-height:90vh;overflow-y:auto;animation:fadeUp .2s ease;
+}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.modal-title{font-size:14px;font-weight:700;color:var(--moss);}
+.modal-close{background:none;border:none;font-size:18px;cursor:pointer;color:var(--text-dim);padding:2px 6px;transition:color .15s;}
+.modal-close:hover{color:var(--text);}
+
+/* ROLE TOGGLE */
+.role-toggle{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--white);}
+.role-opt{
+  flex:1;padding:9px 8px;text-align:center;
+  font-family:'Zen Kaku Gothic New',sans-serif;font-size:12px;font-weight:500;
+  color:var(--text-dim);cursor:pointer;transition:background .16s,color .16s;
+  letter-spacing:.04em;user-select:none;border-right:1px solid var(--border);
+}
+.role-opt:last-child{border-right:none;}
+.role-opt.active{background:var(--moss);color:white;}
+.role-opt:not(.active):hover{background:var(--moss-pale);color:var(--moss);}
+
+/* EMPTY */
+.empty{text-align:center;padding:48px 24px;border:1px dashed var(--border2);border-radius:var(--r-lg);color:var(--text-dim);}
+.empty-art{font-size:28px;margin-bottom:12px;opacity:.4;}
+.empty p{font-size:13px;line-height:1.8;}
+
+/* ICS SETTINGS */
+.ics-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:26px;right:22px;
+  background:var(--moss);color:rgba(255,255,255,.92);
+  border-radius:8px;padding:10px 18px;
+  font-size:12px;font-weight:500;letter-spacing:.04em;
+  z-index:999;opacity:0;transform:translateY(8px);
+  transition:all .2s;pointer-events:none;
+  box-shadow:0 4px 18px rgba(61,79,58,.22);
+}
+.toast.show{opacity:1;transform:translateY(0);}
+
+@media(max-width:580px){
+  .form-grid{grid-template-columns:1fr;}
+  .field.full{grid-column:1;}
+  .stats-row{grid-template-columns:1fr;}
+  .member-row{grid-template-columns:28px 1fr auto auto;}
+  .member-row .renew-badge{display:none;}
+  header{flex-direction:column;align-items:flex-start;gap:12px;}
+  .ics-options{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <div class="eyebrow">Family Subscription</div>
+    <h1>家庭訂閱管理</h1>
+  </div>
+  <nav class="header-nav">
+    <button class="nav-btn active" onclick="switchTab('services',this)">訂閱項目</button>
+    <button class="nav-btn" onclick="switchTab('settings',this)">設定</button>
+  </nav>
+</header>
+
+<div class="stats-row">
+  <div class="stat"><div class="stat-label">訂閱項目</div><div class="stat-val" id="st-services">0 <small>項</small></div></div>
+  <div class="stat"><div class="stat-label">每月費用</div><div class="stat-val" id="st-monthly">0 <small>元 / 月</small></div></div>
+  <div class="stat"><div class="stat-label">年度總計</div><div class="stat-val" id="st-annual">0 <small>元 / 年</small></div></div>
+</div>
+
+<!-- Tab: Services -->
+<div id="tab-services" class="tab-pane active">
+  <div id="service-list" class="service-list"></div>
+  <button class="btn-add-service" onclick="toggleAddPanel()">
+    <span id="add-btn-icon">＋</span> 新增訂閱項目
+  </button>
+  <div class="add-svc-panel" id="add-svc-panel">
+    <div class="panel-head">
+      <div class="panel-title">🌿 新增訂閱項目</div>
+      <button class="modal-close" onclick="toggleAddPanel()">✕</button>
+    </div>
+    <div class="form-grid">
+      <div class="field full">
+        <label>選擇預設服務</label>
+        <select id="inp-preset" onchange="applyPreset()">
+          <option value="">── 選擇或直接自行填寫 ──</option>
+          <optgroup label="Apple">
+            <option value="apple_one"   data-emoji="🍎" data-price="345"  data-cycle="monthly">Apple One 家庭方案</option>
+            <option value="apple_music" data-emoji="🎵" data-price="190"  data-cycle="monthly">Apple Music 家庭</option>
+            <option value="apple_tv"    data-emoji="📺" data-price="130"  data-cycle="monthly">Apple TV+</option>
+            <option value="icloud200"   data-emoji="☁️" data-price="90"   data-cycle="monthly">iCloud+ 200GB 家庭</option>
+            <option value="icloud2t"    data-emoji="☁️" data-price="330"  data-cycle="monthly">iCloud+ 2TB 家庭</option>
+          </optgroup>
+          <optgroup label="影音串流">
+            <option value="netflix"  data-emoji="🎬" data-price="390" data-cycle="monthly">Netflix 標準 4K</option>
+            <option value="youtube"  data-emoji="▶️" data-price="429" data-cycle="monthly">YouTube Premium 家庭</option>
+            <option value="disney"   data-emoji="✨" data-price="270" data-cycle="monthly">Disney+</option>
+            <option value="prime"    data-emoji="📦" data-price="199" data-cycle="yearly">Amazon Prime（年繳）</option>
+          </optgroup>
+          <optgroup label="音樂">
+            <option value="spotify"  data-emoji="🎧" data-price="239" data-cycle="monthly">Spotify 家庭方案</option>
+            <option value="kkbox"    data-emoji="🎼" data-price="250" data-cycle="monthly">KKBOX 家庭方案</option>
+          </optgroup>
+          <optgroup label="生產力">
+            <option value="notion"   data-emoji="📝" data-price="480" data-cycle="monthly">Notion 團隊</option>
+            <option value="ms365"    data-emoji="💼" data-price="350" data-cycle="monthly">Microsoft 365 家庭</option>
+            <option value="gws"      data-emoji="📧" data-price="300" data-cycle="monthly">Google Workspace</option>
+          </optgroup>
+          <optgroup label="其他">
+            <option value="custom"   data-emoji="📌" data-price=""    data-cycle="monthly">自訂服務</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="field"><label>服務名稱</label><input type="text" id="inp-svc-name" placeholder="例：Netflix 家庭" maxlength="30"></div>
+      <div class="field"><label>Emoji 圖示</label><input type="text" id="inp-svc-emoji" placeholder="🎬" maxlength="2"></div>
+      <div class="field"><label>月費（元）</label><input type="number" id="inp-svc-price" placeholder="390" min="0"></div>
+      <div class="field">
+        <label>繳費週期</label>
+        <select id="inp-svc-cycle">
+          <option value="monthly">每月</option>
+          <option value="yearly">每年（÷12 換算月費）</option>
+        </select>
+      </div>
+      <div class="field"><label>訂閱開始日</label><input type="date" id="inp-svc-start"></div>
+      <div class="field"><label>下次續費日</label><input type="date" id="inp-svc-renew"></div>
+      <div class="field full"><label>備註（選填）</label><input type="text" id="inp-svc-note" placeholder="例：共用家庭帳號" maxlength="50"></div>
+    </div>
+    <button class="btn-primary" onclick="addService()">建立訂閱項目</button>
+  </div>
+</div>
+
+<!-- Tab: Settings -->
+<div id="tab-settings" class="tab-pane">
+
+  <!-- Message template -->
+  <div class="settings-section">
+    <div class="settings-title">繳費提醒訊息範本</div>
+    <div class="settings-card">
+      <div class="field">
+        <label>訊息內容</label>
+        <textarea id="msg-template" rows="6"></textarea>
+        <div class="hint">
+          可用變數：<code>{name}</code> 成員姓名・<code>{service}</code> 服務名稱・
+          <code>{monthly}</code> 月費・<code>{annual}</code> 年費・
+          <code>{renew}</code> 續費日・<code>{days}</code> 剩餘天數・<code>{role}</code> 角色
+        </div>
+      </div>
+      <div class="settings-row">
+        <button class="btn-save" onclick="saveMsgTemplate()">儲存範本</button>
+        <button class="btn-secondary" onclick="resetMsgTemplate()">恢復預設</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ICS Settings -->
+  <div class="settings-section">
+    <div class="settings-title">📅 行事曆匯出設定</div>
+    <div class="settings-card">
+      <div class="ics-options">
+        <div class="field">
+          <label>提前提醒天數</label>
+          <select id="ics-remind-days">
+            <option value="3">3 天前</option>
+            <option value="5">5 天前</option>
+            <option value="7" selected>7 天前</option>
+            <option value="14">14 天前</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>匯出範圍</label>
+          <select id="ics-scope">
+            <option value="all">全部訂閱項目</option>
+            <option value="renew">僅有續費日的項目</option>
+          </select>
+        </div>
+      </div>
+      <div class="hint" style="margin-bottom:14px;">
+        匯出 .ics 檔案後，在 Apple 行事曆雙擊開啟，或上傳至 Google 日曆（設定 → 匯入），即可收到系統通知提醒。
+      </div>
+      <button class="btn-save" onclick="exportICS()">⬇ 匯出 .ics 行事曆</button>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /wrap -->
+
+<!-- Add member modal -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-title">新增成員</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="form-grid">
+      <div class="field"><label>姓名 / 暱稱</label><input type="text" id="m-name" placeholder="例：小花" maxlength="20"></div>
+      <div class="field">
+        <label>角色</label>
+        <div class="role-toggle">
+          <div class="role-opt active" data-role="member" onclick="setRole(this)">成員</div>
+          <div class="role-opt" data-role="payer" onclick="setRole(this)">分款者</div>
+          <div class="role-opt" data-role="self" onclick="setRole(this)">自己</div>
+        </div>
+      </div>
+      <div class="field"><label>加入日期</label><input type="date" id="m-join"></div>
+      <div class="field"><label>下次繳費日</label><input type="date" id="m-renew"></div>
+      <div class="field full"><label>備註（選填）</label><input type="text" id="m-note" placeholder="例：哥哥帳號" maxlength="30"></div>
+    </div>
+    <button class="btn-primary" onclick="saveNewMember()">確認加入</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ── DEFAULTS ── */
+const DEFAULT_TEMPLATE = `嗨 {name}！提醒你「{service}」訂閱費用繳費通知 🌿
+
+• 角色：{role}
+• 月費金額：NT$ {monthly}
+• 年度總計：NT$ {annual}
+• 下次續費：{renew}（還有 {days} 天）
+
+請記得在到期前完成轉帳，謝謝你！`;
+
+/* ── STATE ── */
+let data     = JSON.parse(localStorage.getItem('sub_v5') || '{"services":[]}');
+let settings = JSON.parse(localStorage.getItem('sub_settings') || '{}');
+if (!settings.msgTemplate) settings.msgTemplate = DEFAULT_TEMPLATE;
+
+function save()         { localStorage.setItem('sub_v5', JSON.stringify(data)); }
+function saveSettings() { localStorage.setItem('sub_settings', JSON.stringify(settings)); }
+
+/* ── UTILS ── */
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2400);
+}
+function todayStr() { return new Date().toISOString().slice(0,10); }
+function formatDate(s) {
+  if (!s) return '—';
+  const [y,m,d] = s.split('-'); return `${y}/${m}/${d}`;
+}
+function daysUntil(s) {
+  if (!s) return null;
+  const t = new Date(); t.setHours(0,0,0,0);
+  return Math.round((new Date(s) - t) / 86400000);
+}
+function renewInfo(s) {
+  const d = daysUntil(s);
+  if (d === null) return { txt: null, cls: '' };
+  if (d < 0)    return { txt: `逾期${Math.abs(d)}天`, cls: 'rb-overdue' };
+  if (d <= 14)  return { txt: `${d}天後到期`, cls: 'rb-due' };
+  return { txt: `${d}天後`, cls: 'rb-ok' };
+}
+function monthlyAmt(svc) {
+  const p = parseFloat(svc.price) || 0;
+  return svc.cycle === 'yearly' ? p / 12 : p;
+}
+function roleLabel(r) {
+  if (r === 'payer') return '分款者'; if (r === 'self') return '自己'; return '成員';
+}
+function roleCls(r) {
+  if (r === 'payer') return 'role-payer'; if (r === 'self') return 'role-self'; return 'role-member';
+}
+
+/* ── TABS ── */
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── SETTINGS ── */
+function loadSettingsUI() { document.getElementById('msg-template').value = settings.msgTemplate; }
+function saveMsgTemplate() {
+  settings.msgTemplate = document.getElementById('msg-template').value;
+  saveSettings(); toast('訊息範本已儲存 ✓');
+}
+function resetMsgTemplate() {
+  settings.msgTemplate = DEFAULT_TEMPLATE;
+  document.getElementById('msg-template').value = DEFAULT_TEMPLATE;
+  saveSettings(); toast('已恢復預設範本');
+}
+
+/* ── ICS EXPORT ── */
+function icsDate(dateStr, offsetDays = 0) {
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + offsetDays);
+  return d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+}
+function icsUid() { return Date.now() + '-' + Math.random().toString(36).slice(2) + '@submanager'; }
+
+function exportICS() {
+  const remindDays = -parseInt(document.getElementById('ics-remind-days').value);
+  const scope      = document.getElementById('ics-scope').value;
+  const services   = data.services;
+  const lines      = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//家庭訂閱管理//ZH','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
+  let count = 0;
+
+  services.forEach(svc => {
+    // Service-level renewal event
+    if (svc.renew && (scope === 'all' || scope === 'renew')) {
+      const monthly = Math.round(monthlyAmt(svc));
+      lines.push('BEGIN:VEVENT');
+      lines.push(`UID:svc-${svc.id}-${icsUid()}`);
+      lines.push(`DTSTAMP:${icsDate(todayStr())}`);
+      lines.push(`DTSTART;VALUE=DATE:${svc.renew.replace(/-/g,'')}`);
+      lines.push(`DTEND;VALUE=DATE:${svc.renew.replace(/-/g,'')}`);
+      lines.push(`SUMMARY:💳 ${svc.name} 續費日`);
+      lines.push(`DESCRIPTION:${svc.name} 訂閱到期\\n月費：NT$ ${monthly}\\n${svc.note || ''}`);
+      lines.push(`BEGIN:VALARM\nTRIGGER:P${Math.abs(remindDays)}DT\nACTION:DISPLAY\nDESCRIPTION:${svc.name} 即將到期，請確認續費\nEND:VALARM`);
+      lines.push('END:VEVENT');
+      count++;
+    }
+
+    // Member-level payment events
+    svc.members.forEach(m => {
+      if (!m.renew) return;
+      const monthly = Math.round(monthlyAmt(svc));
+      lines.push('BEGIN:VEVENT');
+      lines.push(`UID:mbr-${m.id}-${icsUid()}`);
+      lines.push(`DTSTAMP:${icsDate(todayStr())}`);
+      lines.push(`DTSTART;VALUE=DATE:${m.renew.replace(/-/g,'')}`);
+      lines.push(`DTEND;VALUE=DATE:${m.renew.replace(/-/g,'')}`);
+      lines.push(`SUMMARY:🌿 ${m.name}｜${svc.name} 繳費日`);
+      lines.push(`DESCRIPTION:${svc.name}\\n成員：${m.name}（${roleLabel(m.role)}）\\n月費：NT$ ${monthly}`);
+      lines.push(`BEGIN:VALARM\nTRIGGER:-P${Math.abs(remindDays)}D\nACTION:DISPLAY\nDESCRIPTION:提醒 ${m.name} 繳交 ${svc.name} 費用 NT$${monthly}\nEND:VALARM`);
+      lines.push('END:VEVENT');
+      count++;
+    });
+  });
+
+  if (count === 0) { toast('沒有可匯出的事件（請先設定續費日）'); return; }
+
+  lines.push('END:VCALENDAR');
+  const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '家庭訂閱_行事曆.ics';
+  a.click();
+  toast(`✓ 已匯出 ${count} 個行事曆事件`);
+}
+
+/* ── PAY STATUS ── */
+function togglePay(svcId, mId, status) {
+  const svc = data.services.find(x => x.id === svcId);
+  const m   = svc?.members.find(x => x.id === mId);
+  if (!m) return;
+  // Toggle: click same status = clear it
+  m.paid = (m.paid === status) ? null : status;
+  save(); render();
+  setTimeout(() => {
+    const card = document.querySelector(`.service-card[data-id="${svcId}"]`);
+    if (card) card.classList.add('open');
+  }, 40);
+}
+
+/* ── PRESET ── */
+function applyPreset() {
+  const sel = document.getElementById('inp-preset');
+  const opt = sel.options[sel.selectedIndex];
+  if (!opt.value) return;
+  document.getElementById('inp-svc-name').value  = opt.text;
+  document.getElementById('inp-svc-emoji').value = opt.dataset.emoji || '📌';
+  document.getElementById('inp-svc-price').value = opt.dataset.price || '';
+  document.getElementById('inp-svc-cycle').value = opt.dataset.cycle || 'monthly';
+}
+
+/* ── ADD PANEL ── */
+function toggleAddPanel() {
+  const panel = document.getElementById('add-svc-panel');
+  const icon  = document.getElementById('add-btn-icon');
+  panel.classList.toggle('open');
+  icon.textContent = panel.classList.contains('open') ? '✕' : '＋';
+}
+
+/* ── ADD SERVICE ── */
+function addService() {
+  const name  = document.getElementById('inp-svc-name').value.trim();
+  const emoji = document.getElementById('inp-svc-emoji').value.trim() || '📌';
+  const price = document.getElementById('inp-svc-price').value.trim();
+  const cycle = document.getElementById('inp-svc-cycle').value;
+  const start = document.getElementById('inp-svc-start').value;
+  const renew = document.getElementById('inp-svc-renew').value;
+  const note  = document.getElementById('inp-svc-note').value.trim();
+  if (!name || !price) { toast('請填寫服務名稱和費用'); return; }
+  data.services.push({ id: Date.now(), name, emoji, price, cycle, start: start || todayStr(), renew, note, members: [] });
+  save(); render();
+  toast(`✓ 已建立「${name}」`);
+  ['inp-svc-name','inp-svc-emoji','inp-svc-price','inp-svc-renew','inp-svc-start','inp-svc-note'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('inp-preset').value = '';
+  document.getElementById('inp-svc-cycle').value = 'monthly';
+  toggleAddPanel();
+}
+
+/* ── DELETE SERVICE ── */
+function deleteService(id) {
+  const s = data.services.find(x => x.id === id);
+  if (!s || !confirm(`確定刪除「${s.name}」嗎？`)) return;
+  data.services = data.services.filter(x => x.id !== id);
+  save(); render(); toast(`已刪除 ${s.name}`);
+}
+
+/* ── TOGGLE CARD ── */
+function toggleCard(id) {
+  const card = document.querySelector(`.service-card[data-id="${id}"]`);
+  if (card) card.classList.toggle('open');
+}
+
+/* ── MODAL ── */
+let _editingSvcId = null;
+function openAddMember(svcId) {
+  _editingSvcId = svcId;
+  const svc = data.services.find(x => x.id === svcId);
+  document.getElementById('modal-title').textContent = `新增成員 — ${svc.name}`;
+  document.getElementById('m-name').value  = '';
+  document.getElementById('m-join').value  = todayStr();
+  document.getElementById('m-renew').value = svc.renew || '';
+  document.getElementById('m-note').value  = '';
+  document.querySelectorAll('.role-opt').forEach(o => o.classList.remove('active'));
+  document.querySelector('.role-opt[data-role="member"]').classList.add('active');
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal-bg'))
+    document.getElementById('modal-bg').classList.remove('open');
+}
+function setRole(el) {
+  document.querySelectorAll('.role-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+function saveNewMember() {
+  const name  = document.getElementById('m-name').value.trim();
+  const role  = document.querySelector('.role-opt.active')?.dataset.role || 'member';
+  const join  = document.getElementById('m-join').value;
+  const renew = document.getElementById('m-renew').value;
+  const note  = document.getElementById('m-note').value.trim();
+  if (!name) { toast('請填寫姓名'); return; }
+  const svc = data.services.find(x => x.id === _editingSvcId);
+  if (!svc) return;
+  svc.members.push({ id: Date.now(), name, role, join: join || todayStr(), renew, note, paid: null });
+  save(); render();
+  document.getElementById('modal-bg').classList.remove('open');
+  toast(`✓ 已加入 ${name}`);
+  setTimeout(() => {
+    const card = document.querySelector(`.service-card[data-id="${_editingSvcId}"]`);
+    if (card) card.classList.add('open');
+  }, 50);
+}
+
+/* ── DELETE MEMBER ── */
+function deleteMember(svcId, mId) {
+  const svc = data.services.find(x => x.id === svcId);
+  const m   = svc?.members.find(x => x.id === mId);
+  if (!m || !confirm(`移除「${m.name}」？`)) return;
+  svc.members = svc.members.filter(x => x.id !== mId);
+  save(); render(); toast(`已移除 ${m.name}`);
+  setTimeout(() => {
+    const card = document.querySelector(`.service-card[data-id="${svcId}"]`);
+    if (card) card.classList.add('open');
+  }, 50);
+}
+
+/* ── COPY MESSAGE ── */
+function copyMemberMsg(svcId, mId, btnEl) {
+  const svc = data.services.find(x => x.id === svcId);
+  const m   = svc?.members.find(x => x.id === mId);
+  if (!svc || !m) return;
+  const monthly = Math.round(monthlyAmt(svc));
+  const annual  = monthly * 12;
+  const d = daysUntil(m.renew);
+  const msg = settings.msgTemplate
+    .replace(/{name}/g, m.name)
+    .replace(/{service}/g, svc.name)
+    .replace(/{monthly}/g, monthly.toLocaleString())
+    .replace(/{annual}/g, annual.toLocaleString())
+    .replace(/{renew}/g, m.renew ? formatDate(m.renew) : '（未設定）')
+    .replace(/{days}/g, d !== null ? d : '—')
+    .replace(/{role}/g, roleLabel(m.role));
+  navigator.clipboard.writeText(msg).then(() => {
+    btnEl.textContent = '✓ 已複製';
+    btnEl.classList.add('copied');
+    setTimeout(() => { btnEl.textContent = `🍃 ${m.name}`; btnEl.classList.remove('copied'); }, 2200);
+    toast('訊息已複製 ✓');
+  }).catch(() => toast('複製失敗'));
+}
+
+/* ── RENDER ── */
+function render() {
+  const services     = data.services;
+  const totalMonthly = services.reduce((s,x) => s + monthlyAmt(x), 0);
+  const totalAnnual  = totalMonthly * 12;
+
+  document.getElementById('st-services').innerHTML = `${services.length} <small>項</small>`;
+  document.getElementById('st-monthly').innerHTML  = `${Math.round(totalMonthly).toLocaleString()} <small>元 / 月</small>`;
+  document.getElementById('st-annual').innerHTML   = `${Math.round(totalAnnual).toLocaleString()} <small>元 / 年</small>`;
+
+  const list = document.getElementById('service-list');
+  if (!services.length) {
+    list.innerHTML = `<div class="empty"><div class="empty-art">🌱</div><p>尚未新增任何訂閱項目<br>點下方「新增訂閱項目」開始記錄吧</p></div>`;
+    return;
+  }
+
+  list.innerHTML = services.map(svc => {
+    const ri      = renewInfo(svc.renew);
+    const monthly = monthlyAmt(svc);
+
+    // Debt calculation: members with role != self and paid != 'paid'
+    const debtors = svc.members.filter(m => m.role !== 'self' && m.paid !== 'paid');
+    const debtTotal = debtors.length > 0 ? Math.round(monthly) * debtors.length : 0;
+
+    const membersHtml = svc.members.length
+      ? svc.members.map(m => {
+          const mri = renewInfo(m.renew);
+          const isPaid = m.paid === 'paid';
+          const isUnpaid = m.paid === 'unpaid';
+          return `<div class="member-row">
+            <div class="member-avatar-sm" style="${isPaid ? 'background:var(--green-pale);border-color:rgba(90,138,90,.3);color:var(--green)' : isUnpaid ? 'background:var(--red-pale);border-color:rgba(176,90,74,.3);color:var(--red-soft)' : ''}">${m.name.slice(0,1)}</div>
+            <div>
+              <div class="member-name-sm">${m.name}${m.note ? ` <span style="color:var(--text-dim);font-size:10px;font-weight:400">· ${m.note}</span>` : ''}</div>
+              <div class="member-dates">加入 ${formatDate(m.join)}${m.renew ? ` · 續費 ${formatDate(m.renew)}` : ''}</div>
+            </div>
+            <span class="role-badge ${roleCls(m.role)}">${roleLabel(m.role)}</span>
+            ${mri.txt ? `<span class="renew-badge ${mri.cls}">${mri.txt}</span>` : '<span></span>'}
+            <div class="pay-toggle" title="點選記錄付款狀態">
+              <div class="pay-opt ${isPaid ? 'paid' : ''}" onclick="togglePay(${svc.id},${m.id},'paid')">已付</div>
+              <div class="pay-opt ${isUnpaid ? 'unpaid' : ''}" onclick="togglePay(${svc.id},${m.id},'unpaid')">未付</div>
+            </div>
+            <button class="btn-ghost" onclick="deleteMember(${svc.id},${m.id})">✕</button>
+          </div>`;
+        }).join('')
+      : `<div style="font-size:12px;color:var(--text-dim);padding:6px 0;">尚無成員</div>`;
+
+    // Debt summary block
+    const debtHtml = debtors.length > 0
+      ? `<div class="debt-summary">
+          <div class="debt-label">💰 待收款 NT$ ${debtTotal.toLocaleString()}</div>
+          <div class="debt-items">
+            ${debtors.map(m => `<div class="debt-item">${m.name} NT$ ${Math.round(monthly).toLocaleString()}</div>`).join('')}
+          </div>
+        </div>` : '';
+
+    const msgBtns = svc.members.length
+      ? `<div class="msg-member-btns">
+          ${svc.members.map(m => `<button class="msg-copy-btn" onclick="copyMemberMsg(${svc.id},${m.id},this)">🍃 ${m.name}</button>`).join('')}
+        </div>` : '';
+
+    const debtPill = debtors.length > 0
+      ? `<span class="debt-pill">待收 NT$ ${debtTotal.toLocaleString()}</span>` : '';
+
+    return `<div class="service-card" data-id="${svc.id}">
+      <div class="svc-header" onclick="toggleCard(${svc.id})">
+        <div class="svc-left">
+          <div class="svc-emoji">${svc.emoji}</div>
+          <div>
+            <div class="svc-name">${svc.name} ${debtPill}</div>
+            <div class="svc-meta">${svc.cycle==='yearly'?'年繳':'月繳'} · ${svc.members.length} 位成員${svc.note?' · '+svc.note:''}${ri.txt?` · <span style="color:var(--amber)">${ri.txt}</span>`:''}</div>
+          </div>
+        </div>
+        <div class="svc-right">
+          <div class="svc-price">NT$ ${Math.round(monthly).toLocaleString()}<small>/ 月</small></div>
+          <button class="btn-ghost" onclick="event.stopPropagation();deleteService(${svc.id})">✕</button>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="svc-body">
+        ${membersHtml}
+        ${debtHtml}
+        <div class="svc-footer">
+          <button class="btn-add-member" onclick="openAddMember(${svc.id})">＋ 新增成員</button>
+          ${msgBtns}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ── INIT ── */
+document.getElementById('inp-svc-start').value = todayStr();
+loadSettingsUI();
+render();
+</script>
+</body>
+</html>
